@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmk7bsoyccsdu"]
+
+[ext_resource type="Script" path="res://Code/Map/TileMapObject.cs" id="1_iqcvi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7x7pp"]
+size = Vector2(16, 16)
+
+[node name="InteractiveObject" type="Node2D"]
+position = Vector2(88, 24)
+script = ExtResource("1_iqcvi")
+
+[node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7x7pp")
+debug_color = Color(1, 1, 1, 0.784314)
+metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="RelayOnAreaEntered"]
+[connection signal="area_exited" from="Area2D" to="." method="RelayOnAreaExited"]

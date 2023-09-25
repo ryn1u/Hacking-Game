@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr67y8611ar44"]
+
+[ext_resource type="Script" path="res://Code/Hacking/HackableInteractionController.cs" id="1_li8ct"]
+[ext_resource type="PackedScene" uid="uid://dmk7bsoyccsdu" path="res://Scenes/Map/InteractiveObject.tscn" id="3_q6wwq"]
+
+[node name="InteractiveHackableTile" type="Node2D"]
+script = ExtResource("1_li8ct")
+
+[node name="InteractiveObject" parent="." instance=ExtResource("3_q6wwq")]
+modulate = Color(0.768627, 0.498039, 0, 1)
+z_index = 10
+position = Vector2(0, 0)
+
+[connection signal="OnAreaEntered" from="InteractiveObject" to="." method="OnArea2DEntered"]
+[connection signal="OnAreaExited" from="InteractiveObject" to="." method="OnArea2DExited"]

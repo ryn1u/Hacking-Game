@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0a12e83l7d2i"]
+
+[ext_resource type="Script" path="res://Code/Map/DoorTileController.cs" id="1_xarnu"]
+[ext_resource type="SpriteFrames" uid="uid://cpfuamxt5qjah" path="res://Maps/SceneTiles/DoorFrames.tres" id="2_jboon"]
+[ext_resource type="PackedScene" uid="uid://dmk7bsoyccsdu" path="res://Scenes/Map/InteractiveObject.tscn" id="2_swink"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggj7s"]
+size = Vector2(13.245, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcj3c"]
+size = Vector2(8.82996, 16)
+
+[node name="DoorTile" type="Node2D" node_paths=PackedStringArray("OpenShape", "ClosedShape", "Sprite")]
+y_sort_enabled = true
+script = ExtResource("1_xarnu")
+OpenShape = NodePath("StaticBody2D/CollisionShapeOpen")
+ClosedShape = NodePath("StaticBody2D/CollisionShapeCosed")
+Sprite = NodePath("sprite")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-5, -16)
+sprite_frames = ExtResource("2_jboon")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShapeOpen" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-7, -6.5)
+scale = Vector2(1.35901, 1)
+shape = SubResource("RectangleShape2D_ggj7s")
+disabled = true
+
+[node name="CollisionShapeCosed" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1.35901, 1)
+shape = SubResource("RectangleShape2D_kcj3c")
+
+[node name="InteractiveObject" parent="." instance=ExtResource("2_swink")]
+position = Vector2(0, 0)
+
+[connection signal="OnAreaEntered" from="InteractiveObject" to="." method="OnArea2DEntered"]
+[connection signal="OnAreaExited" from="InteractiveObject" to="." method="OnArea2DExited"]

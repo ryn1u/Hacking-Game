@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://cpfuamxt5qjah"]
+
+[ext_resource type="Texture2D" uid="uid://c4h2exmqe7uv3" path="res://Assets/Graphics/spritesheets/animated_door_vertical_left_1.png" id="1_o0p6k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1q8m2"]
+atlas = ExtResource("1_o0p6k")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k13wt"]
+atlas = ExtResource("1_o0p6k")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mu7t"]
+atlas = ExtResource("1_o0p6k")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru4hu"]
+atlas = ExtResource("1_o0p6k")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ghnt"]
+atlas = ExtResource("1_o0p6k")
+region = Rect2(128, 0, 32, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1q8m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k13wt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mu7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru4hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ghnt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
