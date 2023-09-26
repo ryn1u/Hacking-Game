@@ -9,8 +9,8 @@ namespace HackingGame.Characters.Player
 	/// </summary>
 	public partial class PlayerInputController : Node
 	{
-		[Export] private 
-		PlayerWorldInputHandler worldInputHandler;
+		[Export] private PlayerWorldInputHandler worldInputHandler;
+		[Export] private PlayerHackingInputHandler hackingInputHandler;
 		private Viewport viewport;
 
 		private IInputHandler currentHandler;
@@ -19,6 +19,8 @@ namespace HackingGame.Characters.Player
 		{
 			viewport = GetViewport();
 			currentHandler = worldInputHandler;
+
+			EventBus.Node.OnGameplayStateChanged += OnGameplayStateChanged;
 		}
 
 
@@ -35,6 +37,21 @@ namespace HackingGame.Characters.Player
 			}
 		}
 
+		private void OnGameplayStateChanged(GameplayState state, string property)
+		{
+			if(property == GameplayState.PropertyName.IsHacking)
+			{
+				if(state.IsHacking)
+				{
+					OnInputModeChanged(InputMode.Hacking);
+				}
+				else
+				{
+					OnInputModeChanged(InputMode.World);
+				}
+			}
+		}
+
 		public void OnInputModeChanged(InputMode mode)
 		{
 			switch(mode)
@@ -43,7 +60,7 @@ namespace HackingGame.Characters.Player
 					currentHandler = worldInputHandler;
 					break;
 				case InputMode.Hacking:
-					currentHandler = null;
+					currentHandler = hackingInputHandler;
 					break;
 			}
 		}

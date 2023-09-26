@@ -8,11 +8,16 @@ namespace HackingGame.Hacking
 {
     public partial class HackableInteractionController : Node
     {
-        //TODO: crate a resource for hack maps, assign each instance to different HackableTile, OnInteract call player hacking controller with map
+        //TODO: add tool indicator to notify if no system maps are assigned
 
         // Interaction flow: Entity enters interaction zone -> zone notifies Entity's interaction controller with available interaction (HERE)
 		//		-> interaction controller emits signal with interaction callback -> other nodes in entity decide what to do.
         [Export] private HackableSystemMap system;
+
+        public override void _Ready()
+        {
+            if(system is null) throw new Exception($"No System has been assigned to this hackable: {Name}");
+        }
 
         public void OnArea2DEntered(Area2D area2D)
         {

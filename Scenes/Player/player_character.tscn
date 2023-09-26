@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5cbbg6ttwnbk"]
+[gd_scene load_steps=17 format=3 uid="uid://c5cbbg6ttwnbk"]
 
 [ext_resource type="Script" path="res://Code/Characters/CharacterPhysicsController.cs" id="1_241mr"]
 [ext_resource type="SpriteFrames" uid="uid://dl5pmhm808ffs" path="res://Assets/Graphics/PlayerCharacterSpriteFrames.tres" id="2_ijq40"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerWorldInputHandler.cs" id="5_yb717"]
 [ext_resource type="Script" path="res://Code/Characters/CharacterState.cs" id="6_h1437"]
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerStatePinger.cs" id="6_pniis"]
+[ext_resource type="Script" path="res://Code/Characters/Player/PlayerHackingInputHandler.cs" id="6_tgc5f"]
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerInteractionController.cs" id="7_qq24j"]
 [ext_resource type="Script" path="res://Code/Characters/CharacterInteractionController.cs" id="7_xjr22"]
 [ext_resource type="PackedScene" uid="uid://2cip3b7d1ym7" path="res://Scenes/Player/InteractionIndicator.tscn" id="8_85yhk"]
@@ -18,12 +19,12 @@
 size = Vector2(14, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ju7es"]
-size = Vector2(1, 1)
+size = Vector2(3, 3)
 
 [node name="Player character" type="CharacterBody2D" node_paths=PackedStringArray("state")]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(72, 31)
+motion_mode = 1
 script = ExtResource("1_241mr")
 state = NodePath("PlayerState")
 speed = 50.0
@@ -40,12 +41,16 @@ sprite_frames = ExtResource("2_ijq40")
 animation = &"idle_down"
 script = ExtResource("3_gshig")
 
-[node name="PlayerInputController" type="Node" parent="." node_paths=PackedStringArray("worldInputHandler")]
+[node name="PlayerInputController" type="Node" parent="." node_paths=PackedStringArray("worldInputHandler", "hackingInputHandler")]
 script = ExtResource("4_nct3a")
 worldInputHandler = NodePath("PlayerWorldInputHandler")
+hackingInputHandler = NodePath("PlayerHackingInputHandler")
 
 [node name="PlayerWorldInputHandler" type="Node" parent="PlayerInputController"]
 script = ExtResource("5_yb717")
+
+[node name="PlayerHackingInputHandler" type="Node" parent="PlayerInputController"]
+script = ExtResource("6_tgc5f")
 
 [node name="PlayerMovementController" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("5_xvvba")

@@ -9,14 +9,25 @@ public partial class PlayerHackingController : Node
 	public override void _Ready()
 	{
 		EventBus.Node.PlayerStartHacking += OnPlayerStartHack;
+		EventBus.Node.PlayerStoppedHacking += OnPlayerStoppedHacking;
 	}
 
-	public void OnPlayerStartHack(HackableSystemMap system)
+	private void OnPlayerStartHack(HackableSystemMap system)
 	{
 		if(GameplayState.State.IsHacking) return;
 
 		var pcInterface = InstantiateInterface();
 		pcInterface.InitializePCInterface(system);
+
+		GameplayState.SetIsHacking(true);
+	}
+
+	private void OnPlayerStoppedHacking()
+	{
+		if(!GameplayState.State.IsHacking) return;
+
+		DestroyInterface();
+		GameplayState.SetIsHacking(false);
 	}
 
 	private PCInterfaceController InstantiateInterface()
@@ -33,6 +44,6 @@ public partial class PlayerHackingController : Node
 
 	private void DestroyInterface()
 	{
-		
+		EventBus.Call(EventsNames.DeleteTemporaryInstance, KEY);	
 	}
 }

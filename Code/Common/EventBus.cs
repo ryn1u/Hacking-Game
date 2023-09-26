@@ -20,9 +20,13 @@ public partial class EventBus : Node
 
 	// HACKING
 	[Signal] public delegate void PlayerStartHackingEventHandler(HackableSystemMap system);
+	[Signal] public delegate void PlayerStoppedHackingEventHandler();
 
 	// INPUT
 	[Signal] public delegate void PlayerChangeControlsEventHandler(PlayerInputController.InputMode mode);
+
+	// GAME STATE
+	[Signal] public delegate void OnGameplayStateChangedEventHandler(GameplayState state, string property);
 
     public override void _Ready()
     {

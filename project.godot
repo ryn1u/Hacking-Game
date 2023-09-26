@@ -75,8 +75,12 @@ interact={
 ]
 }
 
+[physics]
+
+2d/physics_engine="GodotPhysics2D"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0.113281, 0.132813, 0.160156, 1)
+environment/defaults/default_clear_color=Color(0.0980392, 0.117647, 0.141176, 1)

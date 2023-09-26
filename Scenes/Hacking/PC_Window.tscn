@@ -3,8 +3,6 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12frn"]
 bg_color = Color(0.171875, 0.152344, 0.152344, 1)
 border_color = Color(0.171875, 0.152344, 0.152344, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
 corner_detail = 10
 
 [node name="PC_Window" type="PanelContainer"]
@@ -36,11 +34,12 @@ bbcode_enabled = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 9
-theme_override_constants/margin_top = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
 
 [node name="Label" type="Label" parent="MarginContainer2"]
+modulate = Color(50, 50, 50, 1)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 14
 text = "cod.e"

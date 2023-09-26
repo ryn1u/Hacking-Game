@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dggom4v6282ad"]
+[gd_scene load_steps=9 format=3 uid="uid://dggom4v6282ad"]
 
 [ext_resource type="Script" path="res://Code/Hacking/PCInterfaceController.cs" id="1_7jtwv"]
-[ext_resource type="Texture2D" uid="uid://c277mhhy2eii7" path="res://Assets/Graphics/background.png" id="1_byv0w"]
-[ext_resource type="PackedScene" uid="uid://dpdy85j5c1cpn" path="res://Scenes/PC_Window.tscn" id="3_7hk0x"]
+[ext_resource type="Shader" path="res://Assets/Graphics/shaders/PC_Interface_blur_background.gdshader" id="2_yaanx"]
+[ext_resource type="PackedScene" uid="uid://dpdy85j5c1cpn" path="res://Scenes/Hacking/PC_Window.tscn" id="3_7hk0x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_anbh3"]
+shader = ExtResource("2_yaanx")
+shader_parameter/blur = 3.186
+shader_parameter/darken = 0.418
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_q26g3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gwre"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -11,11 +18,26 @@ border_width_top = 60
 border_width_right = 20
 border_width_bottom = 20
 border_color = Color(0.171875, 0.152344, 0.152344, 1)
-corner_radius_top_left = 40
-corner_radius_top_right = 40
+
+[sub_resource type="Gradient" id="Gradient_dsmlp"]
+colors = PackedColorArray(0.191406, 0.203125, 0.328125, 1, 0.570171, 0.152818, 0.167074, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yt50d"]
+gradient = SubResource("Gradient_dsmlp")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
 
 [node name="PC_Interface" type="CanvasLayer"]
 script = ExtResource("1_7jtwv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_anbh3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_q26g3")
 
 [node name="Margins" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -58,18 +80,22 @@ theme_override_constants/margin_bottom = 20
 
 [node name="TextureRect" type="TextureRect" parent="Margins/Panel/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("1_byv0w")
+texture = SubResource("GradientTexture2D_yt50d")
 expand_mode = 1
 
-[node name="PC_Window" parent="Margins/Panel/MarginContainer/TextureRect" instance=ExtResource("3_7hk0x")]
+[node name="PC_Window_Queue" parent="Margins/Panel/MarginContainer/TextureRect" instance=ExtResource("3_7hk0x")]
 layout_mode = 1
-offset_top = 65.0
-offset_right = -896.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = -848.0
 offset_bottom = -32.0
 
-[node name="PC_Window2" parent="Margins/Panel/MarginContainer/TextureRect" instance=ExtResource("3_7hk0x")]
+[node name="Control" type="Control" parent="Margins/Panel/MarginContainer/TextureRect/PC_Window_Queue"]
+layout_mode = 2
+
+[node name="PC_Window_System" parent="Margins/Panel/MarginContainer/TextureRect" instance=ExtResource("3_7hk0x")]
 layout_mode = 1
-offset_left = 257.0
-offset_top = 65.0
-offset_right = -99.0
+offset_left = 296.0
+offset_top = 32.0
+offset_right = -32.0
 offset_bottom = -32.0
