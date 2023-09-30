@@ -1,10 +1,16 @@
 using Godot;
 using System;
+using HackingGame.Common;
 
 public partial class GameplayState : Node
 {
 	public static GameplayState State {get; set; }
+
+	[ExportCategory("Player's variables")]
 	[Export] public bool IsHacking { get; private set; }
+	[Export] public HackingGameplayState HackingGameplayState { get; private set; }
+
+	[Export] public Godot.Collections.Array<Program> Programs { get; set; }
 
 	public static void SetIsHacking(bool value)
 	{
@@ -21,5 +27,6 @@ public partial class GameplayState : Node
 	public override void _Ready()
 	{
 		State = this;
+		HackingGameplayState = new HackingGameplayState(NotifyStateChange, PropertyName.HackingGameplayState);
 	}
 }

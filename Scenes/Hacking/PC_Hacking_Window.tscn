@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://s6u56plnq2my"]
+
+[ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="1_13btf"]
+[ext_resource type="Script" path="res://Code/Hacking/Interface/PCHackingWindowController.cs" id="1_w8i74"]
+[ext_resource type="FontFile" uid="uid://b7hwjwtom3ey6" path="res://Assets/Misc/Fonts/CascadiaMono-Regular.otf" id="2_6ewhk"]
+[ext_resource type="FontFile" uid="uid://cnbkjygl8vmk1" path="res://Assets/Misc/Fonts/CascadiaMono-Bold.otf" id="3_y8wx5"]
+[ext_resource type="Script" path="res://Code/Hacking/Interface/PCWindowInventoryController.cs" id="3_ypots"]
+[ext_resource type="PackedScene" uid="uid://m5v28kmj4drt" path="res://Scenes/Hacking/InventoryLabel.tscn" id="4_4ifvd"]
+[ext_resource type="FontFile" uid="uid://dn20pntemtkyu" path="res://Assets/Misc/Fonts/CascadiaMono-Italic.otf" id="4_17n4c"]
+[ext_resource type="FontFile" uid="uid://cqkyst010u6s5" path="res://Assets/Misc/Fonts/CascadiaMono-BoldItalic.otf" id="5_dlc3x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12frn"]
+bg_color = Color(0.171875, 0.152344, 0.152344, 1)
+border_color = Color(0.171875, 0.152344, 0.152344, 1)
+corner_detail = 10
+
+[node name="PC_Hacking_Window" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1445.0
+offset_bottom = -425.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12frn")
+script = ExtResource("1_w8i74")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Background" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.368627, 0.203922, 0.286275, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="InvnetoryLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_13btf")
+theme_override_colors/font_color = Color(0.988235, 0.396078, 0.286275, 1)
+text = "~usr/commands://"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="WindowInventory" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96.075, 0)
+layout_mode = 2
+script = ExtResource("3_ypots")
+inventoryLabel = ExtResource("4_4ifvd")
+
+[node name="Vecrtical Separator" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_13btf")
+bbcode_enabled = true
+text = "[bgcolor=white][color=5e3449]CHUJ[/color][/bgcolor]
+[font_size=20]Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+fit_content = true
+
+[node name="Horizontal Separator" type="ColorRect" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="InvnetoryLabel2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_13btf")
+theme_override_colors/font_color = Color(0.988235, 0.396078, 0.286275, 1)
+text = "hack_terminal://"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_13btf")
+theme_override_constants/table_h_separation = 8
+theme_override_constants/table_v_separation = 0
+theme_override_fonts/normal_font = ExtResource("2_6ewhk")
+theme_override_fonts/bold_font = ExtResource("3_y8wx5")
+theme_override_fonts/italics_font = ExtResource("4_17n4c")
+theme_override_fonts/bold_italics_font = ExtResource("5_dlc3x")
+bbcode_enabled = true
+text = "[fill][table=5]
+[cell=1]1234[/cell] [cell=1] A3[/cell] [cell=1] E0[/cell] [cell=1][/cell] [cell=1] chu[/cell]
+[cell=1]1234[/cell] [cell=1] A3[/cell] [cell=1] E0[/cell] [cell=1][/cell] [cell=1] KURWA[/cell]
+[cell=1]1234[/cell] [cell=1] A3[/cell] [cell=1] E0[/cell] [cell=1][/cell] [cell=1] DEBIL[/cell]
+[cell=1]1234[/cell] [cell=1] A3[/cell] [cell=1] E0[/cell] [cell=1][/cell] [cell=1] JEBAC[/cell]
+[/table]"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+
+[node name="Label" type="Label" parent="MarginContainer2"]
+modulate = Color(50, 50, 50, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_13btf")
+text = "terminal"

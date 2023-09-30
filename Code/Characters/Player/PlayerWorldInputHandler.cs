@@ -13,6 +13,7 @@ namespace HackingGame.Characters.Player
 		[Signal] public delegate void OnInputInteractEventHandler();
 
 		private MovementStack stack;
+		private readonly Direction[] directions = new Direction[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
 		private Func<InputEvent, bool>[] funcs;
 		[Export] private bool DebugStack = false;
 
@@ -66,8 +67,6 @@ namespace HackingGame.Characters.Player
 
 		private bool HandleDirectionInput(InputEvent @event)
 		{
-			var directions = new [] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
-
 			for (int i = 0; i < directions.Length; i++)
 			{
 				var name = directions[i].Name().ToLower();

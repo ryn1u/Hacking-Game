@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpdy85j5c1cpn"]
+[gd_scene load_steps=3 format=3 uid="uid://dpdy85j5c1cpn"]
+
+[ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="1_l1j1e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12frn"]
 bg_color = Color(0.171875, 0.152344, 0.152344, 1)
@@ -19,14 +21,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_12frn")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="Background" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
-color = Color(0.367188, 0.203125, 0.285156, 1)
+color = Color(0.368627, 0.203922, 0.286275, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 layout_mode = 2
@@ -41,5 +43,5 @@ theme_override_constants/margin_top = 0
 modulate = Color(50, 50, 50, 1)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 14
-text = "cod.e"
+theme = ExtResource("1_l1j1e")
+text = "terminal"

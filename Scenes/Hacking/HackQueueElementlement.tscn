@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://1jt2t4rwhdqj"]
+
+[ext_resource type="Shader" path="res://Assets/Graphics/shaders/HackingProgramBackgorundBar.gdshader" id="1_4j0fb"]
+[ext_resource type="Shader" path="res://Assets/Graphics/shaders/HackingProgramBar.gdshader" id="2_6nnkv"]
+[ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="3_x3xel"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h3st3"]
+resource_local_to_scene = true
+shader = ExtResource("1_4j0fb")
+shader_parameter/letter_color = Color(1, 1, 1, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_udl5u"]
+resource_local_to_scene = true
+shader = ExtResource("2_6nnkv")
+shader_parameter/backgroundColor = Color(0.368627, 0.203922, 0.286275, 1)
+shader_parameter/progress = 0.0
+
+[node name="HackQueueElement" type="MarginContainer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_h3st3")
+layout_mode = 2
+color = Color(0.368627, 0.203922, 0.286275, 1)
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_udl5u")
+layout_mode = 2
+theme = ExtResource("3_x3xel")
+text = "chujowi"

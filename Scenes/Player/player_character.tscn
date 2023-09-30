@@ -70,7 +70,7 @@ script = ExtResource("9_k5i1c")
 PC_Interface = ExtResource("10_q2ixs")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(7, 7)
+zoom = Vector2(12, 12)
 
 [node name="PlayerState" type="Node2D" parent="."]
 y_sort_enabled = true

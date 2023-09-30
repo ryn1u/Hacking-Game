@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfl1gr5vt654n"]
+
+[ext_resource type="Script" path="res://Code/Hacking/Programs/ProgramBehaviours.cs" id="1_r2ppv"]
+
+[node name="ProgramBehaviours" type="Node"]
+script = ExtResource("1_r2ppv")
+ProgramBehavioursRegistry = {
+"ExecuteMvptr": null
+}

@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://jntkxdjs3goc"]
+
+[ext_resource type="Script" path="res://Code/Common/GameplayState.cs" id="1_kth3a"]
+[ext_resource type="Resource" uid="uid://ktyxv3ihjaxy" path="res://Code/Hacking/Programs/Resources/MvptrProgram.tres" id="2_a2jqr"]
+[ext_resource type="Resource" uid="uid://bin0gh40ay4xg" path="res://Code/Hacking/Programs/Resources/DefaultProgram.tres" id="3_ktoop"]
+
+[node name="GameplayState" type="Node"]
+script = ExtResource("1_kth3a")
+Programs = Array[Resource]([ExtResource("2_a2jqr"), ExtResource("3_ktoop")])

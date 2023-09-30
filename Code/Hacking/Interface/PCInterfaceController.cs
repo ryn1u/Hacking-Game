@@ -7,4 +7,9 @@ public partial class PCInterfaceController : CanvasLayer
 	{
 		GD.Print($"zinicjalizowano chuja o nazwie: {system.Data}");
 	}
+
+    public override void _Ready()
+    {
+
+    }
 }

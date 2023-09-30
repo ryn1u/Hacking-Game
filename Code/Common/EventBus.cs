@@ -3,6 +3,7 @@ global using EventsNames = EventBus.SignalName;
 using Godot;
 using System.Linq;
 
+using HackingGame.Common;
 using HackingGame.Characters;
 using HackingGame.Characters.Player;
 

@@ -20,6 +20,7 @@ public partial class PlayerHackingController : Node
 		pcInterface.InitializePCInterface(system);
 
 		GameplayState.SetIsHacking(true);
+		GameplayState.State.HackingGameplayState.ResetState();
 	}
 
 	private void OnPlayerStoppedHacking()
