@@ -1,14 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://m5v28kmj4drt"]
+[gd_scene load_steps=2 format=3 uid="uid://m5v28kmj4drt"]
 
-[ext_resource type="Shader" path="res://Assets/Graphics/shaders/HackingProgramBar.gdshader" id="1_j2vhq"]
 [ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="2_528yo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_udl5u"]
-resource_local_to_scene = true
-shader = ExtResource("1_j2vhq")
-shader_parameter/backgroundColor = Color(0.368627, 0.203922, 0.286275, 1)
-shader_parameter/progress = 0.0
-
-[node name="InventoryLabel" type="Label"]
-material = SubResource("ShaderMaterial_udl5u")
+[node name="RichTextLabel" type="RichTextLabel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
 theme = ExtResource("2_528yo")
+bbcode_enabled = true
+fit_content = true

@@ -4,5 +4,7 @@
 
 [resource]
 script = ExtResource("1_pd7kf")
-ProgramName = "Dummy Name"
+ProgramName = "Dummy"
 Description = "Dummy description"
+Addr1 = 65535
+Addr2 = 255

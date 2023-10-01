@@ -6,3 +6,5 @@
 script = ExtResource("1_uyu1b")
 ProgramName = "mvptr"
 Description = "Moves your system pointer to the next connected node."
+Addr1 = 445
+Addr2 = 45

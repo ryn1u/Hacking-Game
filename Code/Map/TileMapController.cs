@@ -6,7 +6,7 @@ public partial class TileMapController : TileMap
 {
 	public override void _Ready()
 	{
-		EventBus.Node.OnPingTileMap += OnPingTileMap;
+		EventBus.Node.Connect(EventsNames.OnPingTileMap, this.ToCall(MethodName.OnPingTileMap));
 	}
 
 	public void OnPingTileMap(SignalEventArguments<TileMap> tileMapArgs)

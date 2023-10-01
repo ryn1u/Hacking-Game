@@ -20,7 +20,7 @@ namespace HackingGame.Characters.Player
 			viewport = GetViewport();
 			currentHandler = worldInputHandler;
 
-			EventBus.Node.OnGameplayStateChanged += OnGameplayStateChanged;
+			EventBus.Node.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnGameplayStateChanged));
 		}
 
 

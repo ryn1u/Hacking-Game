@@ -6,32 +6,44 @@ using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 public partial class PCWindowInventoryController : VBoxContainer
 {
 	[Export] private PackedScene inventoryLabel;
+	[Export] private RichTextLabel descriptionLabel;
 
-	private List<Label> labels;
+	private string baseDescription;
+	private List<RichTextLabel> labels;
 
 	public override void _Ready()
 	{
 		var inventory = GameplayState.State.Programs;
 
-		labels = new List<Label>();
+		if(descriptionLabel is null) throw new Exception($"No description text lable assinged to pc interface window");
+		baseDescription = descriptionLabel.Text;
+
+		labels = new List<RichTextLabel>();
 		foreach(var program in inventory)
 		{
-			var instance = inventoryLabel.Instantiate<Label>();
+			var instance = inventoryLabel.Instantiate<RichTextLabel>();
 			AddChild(instance);
 			labels.Add(instance);
 		}
 		WrtieLabels(GameplayState.State);
+		UpdateDescriptionBox(GameplayState.State);
 
-		EventBus.Node.OnGameplayStateChanged += OnHackingGameplayStateChanged;
+		EventBus.Node.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingGameplayStateChanged));
 	}
+    
 
 	public void OnHackingGameplayStateChanged(GameplayState state, string property)
 	{
 		var baseName = GameplayState.PropertyName.HackingGameplayState;
 		
-		if(property == $"{baseName}/{HackingProperties.CurrentSelector}" || property == $"{baseName}/{HackingProperties.InventoryCursorPosition}")
+		if(property == $"{baseName}/{HackingProperties.CurrentSelector}")
 		{
 			WrtieLabels(state);
+		}
+		else if(property == $"{baseName}/{HackingProperties.InventoryCursorPosition}")
+		{
+			WrtieLabels(state);
+			UpdateDescriptionBox(state);
 		}
 	}
 
@@ -44,9 +56,18 @@ public partial class PCWindowInventoryController : VBoxContainer
 			bool isCurrentSelector = state.HackingGameplayState.CurrentSelector == HackingGame.Common.CurrentSelector.Inventory;
 			if(isCurrentSelector && state.HackingGameplayState.InventoryCursorPosition == i)
 			{
-				text = ">" + text;
+				text = "[bgcolor=white][color=5e3449]" + text + "[/color][/bgcolor]";
 			}
 			labels[i].Text = text;
 		}
+	}
+
+	private void UpdateDescriptionBox(GameplayState state)
+	{
+		var program = state.Programs[state.HackingGameplayState.InventoryCursorPosition];
+		var newText = baseDescription.Replace("<name>", program.ProgramName.ToUpper());
+		newText = newText.Replace("<description>", program.Description);
+
+		descriptionLabel.Text = newText;
 	}
 }

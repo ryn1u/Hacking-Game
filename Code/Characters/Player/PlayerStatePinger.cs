@@ -13,7 +13,7 @@ namespace HackingGame.Characters.Player
 				state = GetNode<CharacterState>("../PlayerState");
 			}
 
-			EventBus.Node.OnPingPlayerState += OnPingPlayerState;
+			EventBus.Node.Connect(EventsNames.OnPingPlayerState, this.ToCall(MethodName.OnPingPlayerState));
         }
 
 		public void OnPingPlayerState(SignalEventArguments<CharacterState> args)

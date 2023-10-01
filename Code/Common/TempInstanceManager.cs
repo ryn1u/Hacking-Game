@@ -15,8 +15,8 @@ public partial class TempInstanceManager : Node
     {
         registry = new Dictionary<string, Node>();
 
-		EventBus.Node.CreateTemporaryInstance += OnCreateTemporaryInstance;
-		EventBus.Node.DeleteTemporaryInstance += OnDeleteTemporaryInstance;
+		EventBus.Node.Connect(EventsNames.CreateTemporaryInstance, this.ToCall(MethodName.OnCreateTemporaryInstance));
+		EventBus.Node.Connect(EventsNames.DeleteTemporaryInstance, this.ToCall(MethodName.OnDeleteTemporaryInstance));
     }
 
 	public void OnCreateTemporaryInstance(string id, TempInstanceArgs args)

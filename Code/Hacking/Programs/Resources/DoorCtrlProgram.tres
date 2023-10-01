@@ -6,3 +6,5 @@
 script = ExtResource("1_o181n")
 ProgramName = "door-ctrl"
 Description = "Opens/Closes connected doors."
+Addr1 = 13665
+Addr2 = 115

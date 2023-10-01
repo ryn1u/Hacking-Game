@@ -70,7 +70,7 @@ namespace HackingGame.Characters.Player
 								break;
 							case CurrentSelector.Sequence:
 								// TODO: Fix max value
-								var newValueS = Math.Clamp(hackingState.SequenceCursorPosition + delta, 0, hackingState.HackingSequence.Count - 1);
+								var newValueS = Math.Clamp(hackingState.SequenceCursorPosition + delta, 0, Math.Max(hackingState.HackingSequence.Count - 1, 0));
 								hackingState.SetSequenceCursor(newValueS);
 								break;
 						}
