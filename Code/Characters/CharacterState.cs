@@ -17,7 +17,7 @@ namespace HackingGame.Characters
 
 		// INTERACTION STATE
 		[Export] public Interaction Interaction { get; private set; }
-        
+		
 
 		public void SetDirection(int direction)
 		{

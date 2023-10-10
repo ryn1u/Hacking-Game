@@ -30,14 +30,12 @@ public partial class ProgramBehaviours : Node
 
 	private void SearchForMissingMembers()
 	{
-		GD.Print("ProgramBehavioursRegistry: Checking for missing fields:");
 		var fields =  typeof(ProgramBehaviours.MethodName).GetFields();
 		foreach(var field in fields)
 		{
 			var fieldName = field.Name;
 			if(fieldName.Contains("Execute"))
 			{
-				GD.Print($"Adding missing key");
 				if(!ProgramBehavioursRegistry.ContainsKey(fieldName))
 				{
 					ProgramBehavioursRegistry.Add(fieldName, null);

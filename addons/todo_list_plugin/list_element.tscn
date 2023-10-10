@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvohr2av87q4m"]
+
+[ext_resource type="Script" path="res://addons/todo_list_plugin/ListElement.cs" id="1_rydat"]
+
+[node name="ListElement" type="HBoxContainer" node_paths=PackedStringArray("Label", "checkBox")]
+alignment = 2
+script = ExtResource("1_rydat")
+Label = NodePath("RichTextLabel")
+checkBox = NodePath("CheckBox")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "x"
+
+[connection signal="toggled" from="CheckBox" to="." method="OnCheckBoxToggled"]
+[connection signal="pressed" from="Button" to="." method="OnDeleteButtonPressedEvent"]

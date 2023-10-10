@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct75oe8ixovoh"]
+
+[ext_resource type="Script" path="res://addons/hackable_system/controls/SystemEditorPropertyControls.cs" id="1_1c8na"]
+
+[node name="SystemEditorPropertyControls" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("1_1c8na")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Hackable System Editor"
+horizontal_alignment = 1
+
+[node name="new node" type="Button" parent="."]
+layout_mode = 2
+text = "new node"
+
+[node name="save" type="Button" parent="."]
+layout_mode = 2
+text = "save resource"
+
+[connection signal="pressed" from="new node" to="." method="OnNewNodeButtonPressed"]
+[connection signal="pressed" from="save" to="." method="OnSaveResourceButtonPressed"]

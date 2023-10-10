@@ -1,0 +1,221 @@
+[gd_scene load_steps=19 format=3 uid="uid://bx0nkfe7gfre7"]
+
+[ext_resource type="Script" path="res://addons/hackable_system/HackableSystemEditorController.cs" id="1_mf4fb"]
+[ext_resource type="Shader" path="res://Assets/Graphics/shaders/PC_Interface_blur_background.gdshader" id="2_pkeic"]
+[ext_resource type="Resource" uid="uid://chfj1af1bwgx6" path="res://Assets/HackableSystems/TestSystemMap.tres" id="2_tuiud"]
+[ext_resource type="PackedScene" uid="uid://dcd23qhlcv2no" path="res://addons/hackable_system/controls/SystemNodeScene.tscn" id="2_xtjlk"]
+[ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="3_eqlft"]
+[ext_resource type="FontFile" uid="uid://b7hwjwtom3ey6" path="res://Assets/Misc/Fonts/CascadiaMono-Regular.otf" id="4_a32he"]
+[ext_resource type="FontFile" uid="uid://cnbkjygl8vmk1" path="res://Assets/Misc/Fonts/CascadiaMono-Bold.otf" id="5_fi4cf"]
+[ext_resource type="FontFile" uid="uid://dn20pntemtkyu" path="res://Assets/Misc/Fonts/CascadiaMono-Italic.otf" id="6_los27"]
+[ext_resource type="FontFile" uid="uid://cqkyst010u6s5" path="res://Assets/Misc/Fonts/CascadiaMono-BoldItalic.otf" id="7_85gvk"]
+[ext_resource type="Script" path="res://Code/Hacking/Interface/SequenceTextController.cs" id="8_bqapm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_anbh3"]
+shader = ExtResource("2_pkeic")
+shader_parameter/blur = 3.186
+shader_parameter/darken = 0.418
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_q26g3"]
+
+[sub_resource type="Gradient" id="Gradient_dsmlp"]
+colors = PackedColorArray(1.2514e-06, 0.483467, 0.398572, 1, 0.0639295, 0.395104, 0.0978205, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yt50d"]
+gradient = SubResource("Gradient_dsmlp")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12frn"]
+bg_color = Color(0.171875, 0.152344, 0.152344, 1)
+border_color = Color(0.171875, 0.152344, 0.152344, 1)
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysjks"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.984375, 0.394531, 0.285156, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw851"]
+bg_color = Color(0.171875, 0.152344, 0.152344, 1)
+border_color = Color(0.171875, 0.152344, 0.152344, 1)
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gwre"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 20
+border_width_top = 60
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.171875, 0.152344, 0.152344, 1)
+
+[node name="PC_Interface" type="CanvasLayer" node_paths=PackedStringArray("nodesContainer")]
+script = ExtResource("1_mf4fb")
+Map = ExtResource("2_tuiud")
+SystemNodeScene = ExtResource("2_xtjlk")
+nodesContainer = NodePath("Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer/DummyContainer")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_anbh3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("CanvasTexture_q26g3")
+
+[node name="Margins" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="Margins/MarginContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_yt50d")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margins/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="PC_Hacking_Window" type="PanelContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12frn")
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Background" type="ColorRect" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer"]
+layout_mode = 2
+color = Color(0.368627, 0.203922, 0.286275, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InvnetoryLabel2" type="Label" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("3_eqlft")
+theme_override_colors/font_color = Color(0.988235, 0.396078, 0.286275, 1)
+text = "hack_terminal://"
+
+[node name="SequenceText" type="RichTextLabel" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_eqlft")
+theme_override_constants/table_h_separation = 8
+theme_override_constants/table_v_separation = 0
+theme_override_fonts/normal_font = ExtResource("4_a32he")
+theme_override_fonts/bold_font = ExtResource("5_fi4cf")
+theme_override_fonts/italics_font = ExtResource("6_los27")
+theme_override_fonts/bold_italics_font = ExtResource("7_85gvk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ysjks")
+bbcode_enabled = true
+text = "[table=5]
+[cell bg=fc6549][color=5e3449]ADR1	[/color][/cell][cell bg=fc6549][color=5e3449]ADR2[/color][/cell][cell bg=fc6549][color=5e3449]CPU%[/color][/cell][cell bg=fc6549][color=5e3449]NAME	[/color][/cell][cell bg=fc6549][color=5e3449]PROG	[/color][/cell]
+"
+autowrap_mode = 0
+script = ExtResource("8_bqapm")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+
+[node name="Label" type="Label" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Hacking_Window/MarginContainer2"]
+modulate = Color(50, 50, 50, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_eqlft")
+text = "terminal"
+
+[node name="PC_Window_System" type="PanelContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gw851")
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Background" type="ColorRect" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer"]
+layout_mode = 2
+color = Color(0.368627, 0.203922, 0.286275, 1)
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="DummyContainer" type="Control" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer2"]
+modulate = Color(50, 50, 50, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_eqlft")
+text = "terminal"
+
+[node name="Panel" type="Panel" parent="Margins"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6gwre")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Margins/Panel"]
+custom_minimum_size = Vector2(0, 56.975)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 21
+text = "BRON"
+horizontal_alignment = 1
+vertical_alignment = 1

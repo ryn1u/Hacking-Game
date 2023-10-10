@@ -3,7 +3,7 @@ using Godot;
 
 namespace HackingGame.Common
 {
-    public partial class HackingGameplayState : GodotObject
+    public partial class HackingGameplayState : RefCounted
     {
         private event Action<string> OnHackingGameplayStateChangedEvent;
 

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bguhqh0fnsp6m"]
+
+[ext_resource type="PackedScene" uid="uid://dvohr2av87q4m" path="res://addons/todo_list_plugin/list_element.tscn" id="1_0se5a"]
+[ext_resource type="Script" path="res://addons/todo_list_plugin/ToDoListController.cs" id="1_bli3n"]
+
+[node name="TO DO" type="VBoxContainer" node_paths=PackedStringArray("lineEdit", "container")]
+offset_right = 338.0
+offset_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_bli3n")
+lineEdit = NodePath("HBoxContainer/LineEdit")
+container = NodePath("VBoxContainer")
+listElementScene = ExtResource("1_0se5a")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "TO DO"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "+"
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="OnAddButtonPressed"]
