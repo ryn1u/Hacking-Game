@@ -12,7 +12,7 @@ public partial class PlayerHackingController : Node
 		EventBus.Relay.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
 	}
 
-	private void OnPlayerStartHack(HackableSystemMap system)
+	private void OnPlayerStartHack(SystemResource system)
 	{
 		if(GameplayState.State.IsHacking) return;
 
@@ -20,7 +20,7 @@ public partial class PlayerHackingController : Node
 		pcInterface.InitializePCInterface(system);
 
 		GameplayState.SetIsHacking(true);
-		GameplayState.State.HackingGameplayState.ResetState();
+		GameplayState.State.HackingInterfaceState.ResetState();
 	}
 
 	private void OnPlayerStoppedHacking()

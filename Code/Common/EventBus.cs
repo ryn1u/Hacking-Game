@@ -19,7 +19,7 @@ public partial class EventBus : Node
 	[Signal] public delegate void DeleteTemporaryInstanceEventHandler(string id);
 
 	// HACKING
-	[Signal] public delegate void PlayerStartedHackingEventHandler(HackableSystemMap system);
+	[Signal] public delegate void PlayerStartedHackingEventHandler(SystemResource system);
 	[Signal] public delegate void PlayerStoppedHackingEventHandler();
 
 	// INPUT

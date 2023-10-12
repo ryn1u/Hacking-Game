@@ -7,28 +7,31 @@ namespace HackingGame.Characters
 {
 	public partial class CharacterInteractionController : Area2D
 	{
-		[Signal] public delegate void OnNotifyInteractionAvailableEventHandler(Interaction interaction);
-		[Signal] public delegate void OnNotifyInteractionUnavailableEventHandler();
-		[Export] private CharacterState state; // REFACTOR: Remove this 
+		[Signal] public delegate void OnInteractionAvailabilityChangedEventHandler(Interaction interaction);
+		[Export] private Direction direction = Direction.Down;
 		[Export] private float distance;
 
 		public void NotifyInteractionAvailable(Interaction interaction)
 		{
-			// Interaction flow: Entity enters interaction zone -> zone notifies Entity's interaction controller with available interactions
-			//		-> interaction controller emits signal with interaction callback (HERE) -> other nodes in entity decide what to do.
-			state.SetInteraction(interaction);
+			EmitSignal(SignalName.OnInteractionAvailabilityChanged, interaction);
 		}
 
 		public void NotifyInteractionUnavailable()
 		{
-			// Interaction flow: Entity enters interaction zone -> zone notifies Entity's interaction controller with available interactions
-			//		-> interaction controller emits signal with interaction callback (HERE) -> other nodes in entity decide what to do.
-			state.SetInteraction(null);
+			EmitSignal(SignalName.OnInteractionAvailabilityChanged, null);
+		}
+
+		public void OnCharacterStateChanged(CharacterState state, string property)
+		{
+			if(property == CharacterProperties.Direction)
+			{
+				direction = state.Direction;
+			}
 		}
 
         public override void _Process(double delta)
         {
-			Position = state.Direction.ToVec2() * distance;
+			Position = direction.ToVec2() * distance;
         }
 	}
 }

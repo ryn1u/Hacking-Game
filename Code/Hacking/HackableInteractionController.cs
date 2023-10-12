@@ -12,7 +12,7 @@ namespace HackingGame.Hacking
 
         // Interaction flow: Entity enters interaction zone -> zone notifies Entity's interaction controller with available interaction (HERE)
 		//		-> interaction controller emits signal with interaction callback -> other nodes in entity decide what to do.
-        [Export] private HackableSystemMap system;
+        [Export] private SystemResource system;
 
         public override void _Ready()
         {
