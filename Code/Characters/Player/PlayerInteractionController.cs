@@ -7,12 +7,12 @@ namespace HackingGame.Characters.Player
 	public partial class PlayerInteractionController : Node
 	{
 		[Export] private PackedScene indicatorScene;
-		[Export] private CharacterState playerState;
+		[Export] private CharacterState playerState; // REFACTOR: Remove this
 		private const string KEY = "player_indicator_key";	
 
 		public void OnPlayerStateChanged(CharacterState state, string property)
 		{
-			if(property == CharacterState.PropertyName.Interaction)
+			if(property == CharacterProperties.Interaction)
 			{
 				if(state.Interaction is not null)
 				{
@@ -33,18 +33,6 @@ namespace HackingGame.Characters.Player
 				var interaction = playerState.Interaction;
 				interaction.callback.Call();
 			}
-		}
-
-		// Called when the node enters the scene tree for the first time.
-		public override void _Ready()
-		{
-
-		}
-
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
-		public override void _Process(double delta)
-		{
-
 		}
 	}
 }

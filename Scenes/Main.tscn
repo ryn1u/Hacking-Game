@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0a12e83l7d2i" path="res://Maps/SceneTiles/DoorTile.tscn" id="5_lusmr"]
 [ext_resource type="PackedScene" uid="uid://c5cbbg6ttwnbk" path="res://Scenes/Player/player_character.tscn" id="6_6dxcr"]
 
-[node name="Root" type="Node2D"]
+[node name="MainSceneRoot" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_a1c21")
 

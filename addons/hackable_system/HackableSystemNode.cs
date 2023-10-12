@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Godot;
+using System;
 
-namespace HackingGame.Hacking.Systems
+[Tool]
+public partial class HackableSystemNode : MarginContainer
 {
-    public partial class HackableSystemNode : Resource
-    {
-        [Export] public Program Program { get; set; }
-        [Export] public Vector2 Position { get; set; }
-        [Export] public Node ConnectedNode {get; set; }
-    }
+	[Export] public Program Program;
+	[Export] public Node ConnectedObject;
 }

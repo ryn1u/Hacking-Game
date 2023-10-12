@@ -1,15 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://bx0nkfe7gfre7"]
+[gd_scene load_steps=18 format=3 uid="uid://bx0nkfe7gfre7"]
 
 [ext_resource type="Script" path="res://addons/hackable_system/HackableSystemEditorController.cs" id="1_mf4fb"]
 [ext_resource type="Shader" path="res://Assets/Graphics/shaders/PC_Interface_blur_background.gdshader" id="2_pkeic"]
-[ext_resource type="Resource" uid="uid://chfj1af1bwgx6" path="res://Assets/HackableSystems/TestSystemMap.tres" id="2_tuiud"]
-[ext_resource type="PackedScene" uid="uid://dcd23qhlcv2no" path="res://addons/hackable_system/controls/SystemNodeScene.tscn" id="2_xtjlk"]
 [ext_resource type="Theme" uid="uid://d3ad3u5x6bc1" path="res://Assets/Misc/PCInterfaceTheme.theme" id="3_eqlft"]
 [ext_resource type="FontFile" uid="uid://b7hwjwtom3ey6" path="res://Assets/Misc/Fonts/CascadiaMono-Regular.otf" id="4_a32he"]
 [ext_resource type="FontFile" uid="uid://cnbkjygl8vmk1" path="res://Assets/Misc/Fonts/CascadiaMono-Bold.otf" id="5_fi4cf"]
 [ext_resource type="FontFile" uid="uid://dn20pntemtkyu" path="res://Assets/Misc/Fonts/CascadiaMono-Italic.otf" id="6_los27"]
 [ext_resource type="FontFile" uid="uid://cqkyst010u6s5" path="res://Assets/Misc/Fonts/CascadiaMono-BoldItalic.otf" id="7_85gvk"]
 [ext_resource type="Script" path="res://Code/Hacking/Interface/SequenceTextController.cs" id="8_bqapm"]
+[ext_resource type="PackedScene" uid="uid://cdq8h2xa037fw" path="res://addons/hackable_system/hackable_system_map.tscn" id="9_hburt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anbh3"]
 shader = ExtResource("2_pkeic")
@@ -53,9 +52,7 @@ border_color = Color(0.171875, 0.152344, 0.152344, 1)
 
 [node name="PC_Interface" type="CanvasLayer" node_paths=PackedStringArray("nodesContainer")]
 script = ExtResource("1_mf4fb")
-Map = ExtResource("2_tuiud")
-SystemNodeScene = ExtResource("2_xtjlk")
-nodesContainer = NodePath("Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer/DummyContainer")
+nodesContainer = NodePath("")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_anbh3")
@@ -187,7 +184,7 @@ layout_mode = 2
 bbcode_enabled = true
 metadata/_edit_lock_ = true
 
-[node name="DummyContainer" type="Control" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer"]
+[node name="HackableSystemMap" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/MarginContainer" instance=ExtResource("9_hburt")]
 layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System"]

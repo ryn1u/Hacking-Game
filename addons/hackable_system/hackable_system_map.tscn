@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdq8h2xa037fw"]
+
+[ext_resource type="Script" path="res://addons/hackable_system/HackableSystemMap.cs" id="1_moh3r"]
+[ext_resource type="Resource" uid="uid://cnrx7ap1bsee8" path="res://Assets/HackableSystems/new_resource.tres" id="2_1y2hq"]
+[ext_resource type="PackedScene" uid="uid://dl81ffk2fsqvf" path="res://addons/hackable_system/HackableSystemNode.tscn" id="2_osjsf"]
+[ext_resource type="Script" path="res://addons/hackable_system/HackableSystemNode.cs" id="4_s3bdw"]
+[ext_resource type="PackedScene" uid="uid://ckfemg7dvcl6n" path="res://addons/hackable_system/SystemEdge.tscn" id="5_8l6hb"]
+[ext_resource type="Script" path="res://addons/hackable_system/SystemEdge.cs" id="5_qwkso"]
+
+[node name="HackableSystemMap" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1188.0
+offset_bottom = 784.0
+script = ExtResource("1_moh3r")
+systemResource = ExtResource("2_1y2hq")
+metadata/_edit_lock_ = true
+
+[node name="HackableSystemNode" type="MarginContainer" parent="." instance=ExtResource("2_osjsf")]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 167.0
+offset_right = 235.0
+offset_bottom = 295.0
+script = ExtResource("4_s3bdw")
+metadata/_edit_group_ = true
+
+[node name="@MarginContainer@26334" type="MarginContainer" parent="." instance=ExtResource("2_osjsf")]
+layout_mode = 0
+offset_left = 673.0
+offset_top = 88.0
+offset_right = 801.0
+offset_bottom = 216.0
+script = ExtResource("4_s3bdw")
+metadata/_edit_group_ = true
+
+[node name="SystemEdge" type="Line2D" parent="." node_paths=PackedStringArray("from", "to") instance=ExtResource("5_8l6hb")]
+points = PackedVector2Array(171, 231, 737, 152)
+width = 2.0
+script = ExtResource("5_qwkso")
+from = NodePath("../HackableSystemNode")
+to = NodePath("../@MarginContainer@26334")
+metadata/_edit_lock_ = true

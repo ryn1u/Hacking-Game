@@ -8,8 +8,8 @@ public partial class PlayerHackingController : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		EventBus.Node.Connect(EventsNames.PlayerStartHacking, this.ToCall(MethodName.OnPlayerStartHack));
-		EventBus.Node.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
+		EventBus.Relay.Connect(EventsNames.PlayerStartedHacking, this.ToCall(MethodName.OnPlayerStartHack));
+		EventBus.Relay.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
 	}
 
 	private void OnPlayerStartHack(HackableSystemMap system)

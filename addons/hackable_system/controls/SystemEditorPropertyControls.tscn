@@ -18,9 +18,19 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "new node"
 
+[node name="new edge" type="Button" parent="."]
+layout_mode = 2
+text = "new edge"
+
 [node name="save" type="Button" parent="."]
 layout_mode = 2
-text = "save resource"
+text = "save"
+
+[node name="load" type="Button" parent="."]
+layout_mode = 2
+text = "load"
 
 [connection signal="pressed" from="new node" to="." method="OnNewNodeButtonPressed"]
-[connection signal="pressed" from="save" to="." method="OnSaveResourceButtonPressed"]
+[connection signal="pressed" from="new edge" to="." method="OnNewEdgeButtonPressed"]
+[connection signal="pressed" from="save" to="." method="OnSaveButtonPressed"]
+[connection signal="pressed" from="load" to="." method="OnLoadButtonPressed"]

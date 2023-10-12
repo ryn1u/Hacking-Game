@@ -18,8 +18,11 @@ namespace HackingGame.Characters
 
 		public void OnPlayerStateChanged(CharacterState state, string property)
 		{
-			string animationType = state.IsWalking ? "walk_" : "idle_";
-			Play(animationType + state.Direction.Name());
+			if(property == CharacterProperties.Direction || property == CharacterProperties.IsWalking)
+			{
+				string animationType = state.IsWalking ? "walk_" : "idle_";
+				Play(animationType + state.Direction.Name());
+			}
 		}
 	}
 }

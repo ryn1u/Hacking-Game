@@ -20,7 +20,7 @@ namespace HackingGame.Common
         {
             notificationPrefix = prefix;
             OnHackingGameplayStateChangedEvent += onStateChangeCallback;
-            EventBus.Node.PlayerStartHacking += (_) => ResetState();
+            EventBus.Relay.PlayerStartedHacking += (_) => ResetState();
         }
 
         public void ResetState()

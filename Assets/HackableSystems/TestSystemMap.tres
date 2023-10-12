@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://chfj1af1bwgx6"]
-
-[ext_resource type="Script" path="res://addons/hackable_system/HackableSystemMap.cs" id="1_eq275"]
-
-[resource]
-script = ExtResource("1_eq275")
-Data = ""
-Nodes = Array[Resource]([null])
-Edges = []

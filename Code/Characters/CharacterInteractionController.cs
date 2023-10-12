@@ -9,7 +9,7 @@ namespace HackingGame.Characters
 	{
 		[Signal] public delegate void OnNotifyInteractionAvailableEventHandler(Interaction interaction);
 		[Signal] public delegate void OnNotifyInteractionUnavailableEventHandler();
-		[Export] private CharacterState state;
+		[Export] private CharacterState state; // REFACTOR: Remove this 
 		[Export] private float distance;
 
 		public void NotifyInteractionAvailable(Interaction interaction)

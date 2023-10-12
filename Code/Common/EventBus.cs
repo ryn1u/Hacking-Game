@@ -9,18 +9,17 @@ using HackingGame.Characters.Player;
 
 public partial class EventBus : Node
 {
-	public static EventBus Node;
+	public static EventBus Relay;
 
 	// PINGS
 	[Signal] public delegate void OnPingTileMapEventHandler(SignalEventArguments<TileMap> tileMapArgs);
-	[Signal] public delegate void OnPingPlayerStateEventHandler(SignalEventArguments<CharacterState> stateArgs);
 
 	// TempInstanceManager
 	[Signal] public delegate void CreateTemporaryInstanceEventHandler(string id, TempInstanceArgs args);
 	[Signal] public delegate void DeleteTemporaryInstanceEventHandler(string id);
 
 	// HACKING
-	[Signal] public delegate void PlayerStartHackingEventHandler(HackableSystemMap system);
+	[Signal] public delegate void PlayerStartedHackingEventHandler(HackableSystemMap system);
 	[Signal] public delegate void PlayerStoppedHackingEventHandler();
 
 	// INPUT
@@ -31,18 +30,18 @@ public partial class EventBus : Node
 
     public override void _Ready()
     {
-        Node = this;
+        Relay = this;
     }
 
 	public static void Call(string name, params Variant[] args)
 	{
 		GD.Print($"Event Bus Call: {name} -> {string.Join(' ', args.Select(x => x.ToString()))}");
-		Node.EmitSignal(name, args);
+		Relay.EmitSignal(name, args);
 	}
 
 	public static void Register(string name, Callable callable)
 	{
-		Node.Connect(name, callable);
+		Relay.Connect(name, callable);
 	}
 }
 

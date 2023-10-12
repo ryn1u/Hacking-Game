@@ -7,16 +7,27 @@ namespace HackingGame.Hacking.Systems
 	public partial class SystemEditorPropertyControls : VBoxContainer
 	{
 		[Signal] public delegate void NewNodeButtonPressedEventHandler();
-		[Signal] public delegate void SaveResourceButtonPressedEventHandler();
+		[Signal] public delegate void NewEdgeButtonPressedEventHandler();
+		[Signal] public delegate void SaveButtonPressedEventHandler();
+		[Signal] public delegate void LoadButtonPressedEventHandler();
 
 		public void OnNewNodeButtonPressed()
 		{
 			EmitSignal(SignalName.NewNodeButtonPressed);
 		}
 
-		public void OnSaveResourceButtonPressed()
+		public void OnNewEdgeButtonPressed()
 		{
-			EmitSignal(SignalName.SaveResourceButtonPressed);
+			EmitSignal(SignalName.NewEdgeButtonPressed);
+		}
+		public void OnSaveButtonPressed()
+		{
+			EmitSignal(SignalName.SaveButtonPressed);
+		}
+
+		public void OnLoadButtonPressed()
+		{
+			EmitSignal(SignalName.LoadButtonPressed);
 		}
 	}
 }

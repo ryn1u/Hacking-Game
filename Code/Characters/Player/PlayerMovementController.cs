@@ -7,7 +7,7 @@ namespace HackingGame.Characters.Player
 	/// <summary>Manages responses to player character based on inputs and state</summary>
 	public partial class PlayerMovementController : Node
 	{
-		[Export] private CharacterState state;
+		[Export] private CharacterState state; // REFACTOR: Remove this
 
 		public void OnInputDirectionChanged(int direction)
 		{

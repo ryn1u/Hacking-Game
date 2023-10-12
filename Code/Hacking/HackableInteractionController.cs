@@ -39,7 +39,7 @@ namespace HackingGame.Hacking
 
         public void Interact()
         {
-            EventBus.Call(EventsNames.PlayerStartHacking, system);
+            EventBus.Call(EventsNames.PlayerStartedHacking, system);
         }
     }
 }

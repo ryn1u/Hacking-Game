@@ -28,7 +28,7 @@ public partial class PCWindowInventoryController : VBoxContainer
 		WrtieLabels(GameplayState.State);
 		UpdateDescriptionBox(GameplayState.State);
 
-		EventBus.Node.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingGameplayStateChanged));
+		EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingGameplayStateChanged));
 	}
     
 

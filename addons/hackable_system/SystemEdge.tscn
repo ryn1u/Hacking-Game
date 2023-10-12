@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckfemg7dvcl6n"]
+
+[ext_resource type="Script" path="res://addons/hackable_system/SystemEdge.cs" id="1_u41ff"]
+
+[node name="SystemEdge" type="Line2D"]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 2.0
+script = ExtResource("1_u41ff")

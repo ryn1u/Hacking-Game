@@ -1,6 +1,7 @@
 using Godot;
 using HackingGame.Hacking.Systems;
 using System;
+using System.Collections.Generic;
 
 public partial class HackableSystemEditorInspectorPlugin : EditorInspectorPlugin
 {
@@ -8,7 +9,7 @@ public partial class HackableSystemEditorInspectorPlugin : EditorInspectorPlugin
 
     public override bool _CanHandle(GodotObject @object)
     {
-        if(@object is HackableSystemEditorController)
+        if(@object is HackableSystemMap)
         {
             return true;
         }
@@ -20,18 +21,26 @@ public partial class HackableSystemEditorInspectorPlugin : EditorInspectorPlugin
 
     public override void _ParseBegin(GodotObject @object)
     {
-        if(@object is HackableSystemEditorController controller)
+        if(@object is HackableSystemMap map)
         {
             var scene = (PackedScene)ResourceLoader.Load(editorInspectorScene);
             var control = scene.Instantiate<Control>();
 
             AddCustomControl(control);
 
-            var newCallback = new Callable(controller, HackableSystemEditorController.MethodName.OnNewNodeButtonPressed);
-            control.Connect(SystemEditorPropertyControls.SignalName.NewNodeButtonPressed, newCallback);
+            var connections = new Dictionary<string, string>()
+            {
+                { HackableSystemMap.MethodName.AddNewNode, SystemEditorPropertyControls.SignalName.NewNodeButtonPressed },
+                { HackableSystemMap.MethodName.AddNewEdge, SystemEditorPropertyControls.SignalName.NewEdgeButtonPressed },
+                { HackableSystemMap.MethodName.Save, SystemEditorPropertyControls.SignalName.SaveButtonPressed },
+                { HackableSystemMap.MethodName.Load, SystemEditorPropertyControls.SignalName.LoadButtonPressed }
+            };
 
-            var saveCallback = new Callable(controller, HackableSystemEditorController.MethodName.OnSaveResourceButtonPressed);
-            control.Connect(SystemEditorPropertyControls.SignalName.SaveResourceButtonPressed, saveCallback);
+            foreach(var connection in connections)
+            {
+                var callback = new Callable(map, connection.Key);
+                control.Connect(connection.Value, callback);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ public partial class SequenceTextController : RichTextLabel
 			$"{baseName}/{HackingProperties.HackingSequence}"
 		};
 
-		EventBus.Node.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingSequenceChanged));
+		EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingSequenceChanged));
     }
 
 	private void OnHackingSequenceChanged(GameplayState state, string property)
