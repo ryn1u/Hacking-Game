@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyenst213bvb8"]
+[gd_scene load_steps=8 format=3 uid="uid://dyenst213bvb8"]
 
 [ext_resource type="Script" path="res://Code/Common/SceneRoot.cs" id="1_a1c21"]
 [ext_resource type="TileSet" uid="uid://oid3mt3ovuey" path="res://Maps/Tilesets/Office.tres" id="1_kbtsl"]
 [ext_resource type="Script" path="res://Code/Map/TileMapController.cs" id="2_8s2ou"]
 [ext_resource type="PackedScene" uid="uid://dr67y8611ar44" path="res://Scenes/Hacking/HackableInteractiveObject.tscn" id="4_5jxa3"]
 [ext_resource type="PackedScene" uid="uid://d0a12e83l7d2i" path="res://Maps/SceneTiles/DoorTile.tscn" id="5_lusmr"]
+[ext_resource type="Resource" uid="uid://cnrx7ap1bsee8" path="res://Assets/HackableSystems/new_resource.tres" id="5_xf3hm"]
 [ext_resource type="PackedScene" uid="uid://c5cbbg6ttwnbk" path="res://Scenes/Player/player_character.tscn" id="6_6dxcr"]
 
 [node name="MainSceneRoot" type="Node2D"]
@@ -51,6 +52,7 @@ script = ExtResource("2_8s2ou")
 
 [node name="InteractiveHackableTile" parent="TileMap" instance=ExtResource("4_5jxa3")]
 position = Vector2(40, 8)
+system = ExtResource("5_xf3hm")
 
 [node name="DoorTile" parent="TileMap" instance=ExtResource("5_lusmr")]
 position = Vector2(152, 56)

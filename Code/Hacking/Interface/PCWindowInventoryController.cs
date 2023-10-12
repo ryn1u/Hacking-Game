@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
+using HackingProperties = HackingGame.Common.HackingInterfaceState.PropertyName;
 
 public partial class PCWindowInventoryController : VBoxContainer
 {
@@ -28,13 +28,13 @@ public partial class PCWindowInventoryController : VBoxContainer
 		WrtieLabels(GameplayState.State);
 		UpdateDescriptionBox(GameplayState.State);
 
-		EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingGameplayStateChanged));
+		EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingInterfaceStateChanged));
 	}
     
 
-	public void OnHackingGameplayStateChanged(GameplayState state, string property)
+	public void OnHackingInterfaceStateChanged(GameplayState state, string property)
 	{
-		var baseName = GameplayState.PropertyName.HackingGameplayState;
+		var baseName = GameplayState.PropertyName.HackingInterfaceState;
 		
 		if(property == $"{baseName}/{HackingProperties.CurrentSelector}")
 		{
@@ -53,8 +53,8 @@ public partial class PCWindowInventoryController : VBoxContainer
 		{
 			var text = state.Programs[i].ProgramName;
 
-			bool isCurrentSelector = state.HackingGameplayState.CurrentSelector == HackingGame.Common.CurrentSelector.Inventory;
-			if(isCurrentSelector && state.HackingGameplayState.InventoryCursorPosition == i)
+			bool isCurrentSelector = state.HackingInterfaceState.CurrentSelector == HackingGame.Common.CurrentSelector.Inventory;
+			if(isCurrentSelector && state.HackingInterfaceState.InventoryCursorPosition == i)
 			{
 				text = "[bgcolor=white][color=5e3449]" + text + "[/color][/bgcolor]";
 			}
@@ -64,7 +64,7 @@ public partial class PCWindowInventoryController : VBoxContainer
 
 	private void UpdateDescriptionBox(GameplayState state)
 	{
-		var program = state.Programs[state.HackingGameplayState.InventoryCursorPosition];
+		var program = state.Programs[state.HackingInterfaceState.InventoryCursorPosition];
 		var newText = baseDescription.Replace("<name>", program.ProgramName.ToUpper());
 		newText = newText.Replace("<description>", program.Description);
 

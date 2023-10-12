@@ -3,9 +3,9 @@ using Godot;
 
 namespace HackingGame.Common
 {
-    public partial class HackingGameplayState : RefCounted
+    public partial class HackingInterfaceState : RefCounted
     {
-        private event Action<string> OnHackingGameplayStateChangedEvent;
+        private event Action<string> OnHackingInterfaceStateChangedEvent;
 
         [Export] public CurrentSelector CurrentSelector { get; private set; }
         [Export] public int InventoryCursorPosition { get; private set; }
@@ -16,10 +16,10 @@ namespace HackingGame.Common
         private string notificationPrefix;
 
 
-        public HackingGameplayState(Action<string> onStateChangeCallback, string prefix)
+        public HackingInterfaceState(Action<string> onStateChangeCallback, string prefix)
         {
             notificationPrefix = prefix;
-            OnHackingGameplayStateChangedEvent += onStateChangeCallback;
+            OnHackingInterfaceStateChangedEvent += onStateChangeCallback;
             EventBus.Relay.PlayerStartedHacking += (_) => ResetState();
         }
 
@@ -33,7 +33,7 @@ namespace HackingGame.Common
 
         private void NotifyStateChange(string property)
         {
-            OnHackingGameplayStateChangedEvent.Invoke( notificationPrefix + "/" + property);
+            OnHackingInterfaceStateChangedEvent.Invoke( notificationPrefix + "/" + property);
         }
 
 

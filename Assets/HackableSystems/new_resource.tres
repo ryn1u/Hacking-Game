@@ -6,12 +6,12 @@
 [sub_resource type="Resource" id="Resource_gjxdu"]
 script = ExtResource("1_bq38o")
 Position = Vector2(103, 87)
-ConnectedNode = null
+ConnectedNode = NodePath("")
 
 [sub_resource type="Resource" id="Resource_8r0qg"]
 script = ExtResource("1_bq38o")
 Position = Vector2(105, 448)
-ConnectedNode = null
+ConnectedNode = NodePath("")
 
 [resource]
 script = ExtResource("1_erstq")

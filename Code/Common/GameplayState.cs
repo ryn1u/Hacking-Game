@@ -8,7 +8,7 @@ public partial class GameplayState : Node
 
 	[ExportCategory("Player's variables")]
 	[Export] public bool IsHacking { get; private set; }
-	[Export] public HackingGameplayState HackingGameplayState { get; private set; }
+	[Export] public HackingInterfaceState HackingInterfaceState { get; private set; }
 
 	[Export] public Godot.Collections.Array<Program> Programs { get; set; }
 
@@ -27,6 +27,6 @@ public partial class GameplayState : Node
 	public override void _Ready()
 	{
 		State = this;
-		HackingGameplayState = new HackingGameplayState(NotifyStateChange, PropertyName.HackingGameplayState);
+		HackingInterfaceState = new HackingInterfaceState(NotifyStateChange, PropertyName.HackingInterfaceState);
 	}
 }
