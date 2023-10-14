@@ -53,7 +53,7 @@ namespace HackingGame.Characters.Player
 				if(@event.IsAction(name))
 				{
 					var state = GameplayState.State;
-					var hackingState = state.HackingInterfaceState;
+					var hackingState = state.HackingGameplayState;
 					if(direction == Direction.Left || direction == Direction.Right)
 					{
 						hackingState.ChangeCurrentSelector();
@@ -87,7 +87,7 @@ namespace HackingGame.Characters.Player
 			if(@event.IsReleased()) return false;
 			
 			var state = GameplayState.State;
-			var hackingState = state.HackingInterfaceState;
+			var hackingState = state.HackingGameplayState;
 			switch(hackingState.CurrentSelector)
 			{
 				case CurrentSelector.Inventory:

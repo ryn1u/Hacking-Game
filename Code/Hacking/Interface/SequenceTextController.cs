@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Text;
 using System.Collections.Generic;
-using HackingProperties = HackingGame.Common.HackingInterfaceState.PropertyName;
+using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 
 public partial class SequenceTextController : RichTextLabel
 {
@@ -12,7 +12,7 @@ public partial class SequenceTextController : RichTextLabel
     public override void _Ready()
     {
 		baseText = Text;
-		var baseName = GameplayState.PropertyName.HackingInterfaceState;
+		var baseName = GameplayState.PropertyName.HackingGameplayState;
 
 		sequnceStateProperties = new List<string>() {
 			$"{baseName}/{HackingProperties.CurrentSelector}",
@@ -27,7 +27,7 @@ public partial class SequenceTextController : RichTextLabel
 	{
 		if(sequnceStateProperties.Contains(property))
 		{
-			var hackingState = state.HackingInterfaceState;
+			var hackingState = state.HackingGameplayState;
 			var rows = new List<string>();
 
 			for (int i = 0; i < hackingState.HackingSequence.Count; i++)

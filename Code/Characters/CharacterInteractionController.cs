@@ -18,7 +18,7 @@ namespace HackingGame.Characters
 
 		public void NotifyInteractionUnavailable()
 		{
-			EmitSignal(SignalName.OnInteractionAvailabilityChanged, null);
+			EmitSignal(SignalName.OnInteractionAvailabilityChanged, new Variant());
 		}
 
 		public void OnCharacterStateChanged(CharacterState state, string property)
