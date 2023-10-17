@@ -10,11 +10,15 @@ namespace HackingGame.Characters.Player
 	{
 		private Func<InputEvent, bool>[] funcs;
 		private readonly Direction[] directions = new Direction[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
-
+		private IGameplayStateController gameplayStateController;
+		private IHackingGameplayStateController hackingGameplayStateController;
 
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready()
 		{
+			gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
+			hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
+
 			funcs = new Func<InputEvent, bool>[] { HandleInteractionInput, HandleDirectionInput, HandleSelectInput };
 		}
 
@@ -52,26 +56,22 @@ namespace HackingGame.Characters.Player
 
 				if(@event.IsAction(name))
 				{
-					var state = GameplayState.State;
-					var hackingState = state.HackingGameplayState;
 					if(direction == Direction.Left || direction == Direction.Right)
 					{
-						hackingState.ChangeCurrentSelector();
+						hackingGameplayStateController.ChangeCurrentSelector();
 					}
 					else
 					{
 						var delta = direction == Direction.Up ? -1 : 1;
 						// Emit signal so that interface handles this
-						switch(hackingState.CurrentSelector)
+						switch(hackingGameplayStateController.GetCurrentSelector())
 						{
 							case CurrentSelector.Inventory:
-								var newValueI = Math.Clamp(hackingState.InventoryCursorPosition + delta, 0, state.Programs.Count - 1);
-								hackingState.SetInventoryCursor(newValueI);
+								// TODO: Move this logic into controller
+								hackingGameplayStateController.MoveInventoryCursor(delta);
 								break;
 							case CurrentSelector.Sequence:
-								// TODO: Fix max value
-								var newValueS = Math.Clamp(hackingState.SequenceCursorPosition + delta, 0, Math.Max(hackingState.HackingSequence.Count - 1, 0));
-								hackingState.SetSequenceCursor(newValueS);
+								hackingGameplayStateController.MoveSequenceCursor(delta);
 								break;
 						}
 						
@@ -86,17 +86,17 @@ namespace HackingGame.Characters.Player
 		{
 			if(@event.IsReleased()) return false;
 			
-			var state = GameplayState.State;
-			var hackingState = state.HackingGameplayState;
-			switch(hackingState.CurrentSelector)
+			switch(hackingGameplayStateController.GetCurrentSelector())
 			{
 				case CurrentSelector.Inventory:
-					var program = state.Programs[hackingState.InventoryCursorPosition];
-					hackingState.AddProgramToSequence(program);
+					var program = gameplayStateController.GetProgramAtIndex(hackingGameplayStateController.GetInventoryCursorPosition());
+					hackingGameplayStateController.AddProgramToSequence(program);
 					break;
 				case CurrentSelector.Sequence:
-					hackingState.RemoveProgramFromSequence(hackingState.SequenceCursorPosition);
-					hackingState.SetSequenceCursor(Math.Clamp(hackingState.SequenceCursorPosition, 0, hackingState.HackingSequence.Count - 1));
+					hackingGameplayStateController.RemoveProgramFromSequence(hackingGameplayStateController.GetSequenceCursorPosition());
+
+					var maxValue = hackingGameplayStateController.GetHAckingSequenceCount()- 1;
+					hackingGameplayStateController.SetSequenceCursor(Math.Clamp(hackingGameplayStateController.GetSequenceCursorPosition(), 0, maxValue));
 					break;
 			}
 			return true;

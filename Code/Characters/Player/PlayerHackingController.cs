@@ -1,34 +1,40 @@
 using Godot;
 using System;
+using HackingGame.Common;
 
 public partial class PlayerHackingController : Node
 {
 	[Export] private PackedScene PC_Interface;
 	private const string KEY = "player_pc_interface";
-	// Called when the node enters the scene tree for the first time.
+	private IGameplayStateController gameplayStateController;
+	private IHackingGameplayStateController hackingGameplayStateController;
+
 	public override void _Ready()
 	{
 		EventBus.Relay.Connect(EventsNames.PlayerStartedHacking, this.ToCall(MethodName.OnPlayerStartHack));
 		EventBus.Relay.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
+
+		gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
+		hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
 	}
 
 	private void OnPlayerStartHack(SystemResource system)
 	{
-		if(GameplayState.State.IsHacking) return;
+		if(gameplayStateController.GetIsHacking()) return;
 
 		var pcInterface = InstantiateInterface();
 		pcInterface.InitializePCInterface(system);
 
-		GameplayState.SetIsHacking(true);
-		GameplayState.State.HackingGameplayState.ResetState();
+		gameplayStateController.SetIsHacking(true);
+		hackingGameplayStateController.ResetState();
 	}
 
 	private void OnPlayerStoppedHacking()
 	{
-		if(!GameplayState.State.IsHacking) return;
+		if(!gameplayStateController.GetIsHacking()) return;
 
 		DestroyInterface();
-		GameplayState.SetIsHacking(false);
+		gameplayStateController.SetIsHacking(false);
 	}
 
 	private PCInterfaceController InstantiateInterface()

@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
+using HackingGame.Common;
 
 public partial class PCWindowInventoryController : VBoxContainer
 {
@@ -10,23 +11,26 @@ public partial class PCWindowInventoryController : VBoxContainer
 
 	private string baseDescription;
 	private List<RichTextLabel> labels;
+	private IGameplayStateController gameplayStateController;
+	private IHackingGameplayStateController hackingGameplayStateController;
 
 	public override void _Ready()
 	{
-		var inventory = GameplayState.State.Programs;
+		gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
+		hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
 
 		if(descriptionLabel is null) throw new Exception($"No description text lable assinged to pc interface window");
 		baseDescription = descriptionLabel.Text;
 
 		labels = new List<RichTextLabel>();
-		foreach(var program in inventory)
+		foreach(Program program in gameplayStateController.GetInventoryProgramsEnumerable())
 		{
 			var instance = inventoryLabel.Instantiate<RichTextLabel>();
 			AddChild(instance);
 			labels.Add(instance);
 		}
-		WrtieLabels(GameplayState.State);
-		UpdateDescriptionBox(GameplayState.State);
+		WrtieLabels();
+		UpdateDescriptionBox();
 
 		EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnHackingGameplayStateChanged));
 	}
@@ -38,23 +42,23 @@ public partial class PCWindowInventoryController : VBoxContainer
 		
 		if(property == $"{baseName}/{HackingProperties.CurrentSelector}")
 		{
-			WrtieLabels(state);
+			WrtieLabels();
 		}
 		else if(property == $"{baseName}/{HackingProperties.InventoryCursorPosition}")
 		{
-			WrtieLabels(state);
-			UpdateDescriptionBox(state);
+			WrtieLabels();
+			UpdateDescriptionBox();
 		}
 	}
 
-	private void WrtieLabels(GameplayState state)
+	private void WrtieLabels()
 	{
 		for (int i = 0; i < labels.Count; i++)
 		{
-			var text = state.Programs[i].ProgramName;
+			var text = gameplayStateController.GetProgramAtIndex(i).ProgramName;
 
-			bool isCurrentSelector = state.HackingGameplayState.CurrentSelector == HackingGame.Common.CurrentSelector.Inventory;
-			if(isCurrentSelector && state.HackingGameplayState.InventoryCursorPosition == i)
+			bool isCurrentSelector = hackingGameplayStateController.GetCurrentSelector() == HackingGame.Common.CurrentSelector.Inventory;
+			if(isCurrentSelector && hackingGameplayStateController.GetInventoryCursorPosition() == i)
 			{
 				text = "[bgcolor=white][color=5e3449]" + text + "[/color][/bgcolor]";
 			}
@@ -62,9 +66,9 @@ public partial class PCWindowInventoryController : VBoxContainer
 		}
 	}
 
-	private void UpdateDescriptionBox(GameplayState state)
+	private void UpdateDescriptionBox()
 	{
-		var program = state.Programs[state.HackingGameplayState.InventoryCursorPosition];
+		var program = gameplayStateController.GetProgramAtIndex(hackingGameplayStateController.GetInventoryCursorPosition());
 		var newText = baseDescription.Replace("<name>", program.ProgramName.ToUpper());
 		newText = newText.Replace("<description>", program.Description);
 

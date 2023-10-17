@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cnrx7ap1bsee8"]
+[gd_resource type="Resource" script_class="SystemResource" load_steps=5 format=3 uid="uid://cnrx7ap1bsee8"]
 
 [ext_resource type="Script" path="res://addons/hackable_system/NodeResource.cs" id="1_bq38o"]
 [ext_resource type="Script" path="res://addons/hackable_system/SystemResource.cs" id="1_erstq"]

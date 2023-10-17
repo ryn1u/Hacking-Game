@@ -17,8 +17,8 @@ namespace HackingGame.Common
         [Export] public int ExecutionPointerPosition { get; private set; }
         [Export] public int NodePointerPosition { get; private set; }
 
-
-        private string notificationPrefix;
+        // prefix is used for state change notifycation. Prefix means the "HackingGameplayState" part of "HackingGameplayState/<propertyname>"
+        private string notificationPrefix; 
 
 
         public HackingGameplayState(Action<string> onStateChangeCallback, string prefix)
@@ -40,7 +40,6 @@ namespace HackingGame.Common
         {
             OnHackingGameplayStateChangedEvent.Invoke( notificationPrefix + "/" + property);
         }
-
 
         // EXECUTION CONTROLS
         public void SetExecutionPointerPosition(int value)

@@ -1,9 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://jntkxdjs3goc"]
+[gd_scene load_steps=7 format=3 uid="uid://jntkxdjs3goc"]
 
-[ext_resource type="Script" path="res://Code/Common/GameplayState.cs" id="1_kth3a"]
+[ext_resource type="Script" path="res://Code/Common/State/GameplayState.cs" id="1_kth3a"]
 [ext_resource type="Resource" uid="uid://ktyxv3ihjaxy" path="res://Code/Hacking/Programs/Resources/MvptrProgram.tres" id="2_a2jqr"]
 [ext_resource type="Resource" uid="uid://bin0gh40ay4xg" path="res://Code/Hacking/Programs/Resources/DefaultProgram.tres" id="3_ktoop"]
+[ext_resource type="Script" path="res://Code/Common/State/ControllerRegistry.cs" id="4_h42uo"]
+[ext_resource type="Script" path="res://Code/Common/State/Controllers/DefaultHackingGameplayStateController.cs" id="5_ghhpi"]
+[ext_resource type="Script" path="res://Code/Common/State/Controllers/DefaultGameplayStateController.cs" id="6_unv1c"]
 
-[node name="GameplayState" type="Node"]
+[node name="ControllerRegistry" type="Node"]
+script = ExtResource("4_h42uo")
+
+[node name="DefaultHackingGameplayStateController" type="Node" parent="."]
+script = ExtResource("5_ghhpi")
+gameplayStatePath = NodePath("../GameplayState")
+
+[node name="DefaultGameplayStateRegistry" type="Node" parent="."]
+script = ExtResource("6_unv1c")
+gameplayStatePath = NodePath("../GameplayState")
+
+[node name="GameplayState" type="Node" parent="."]
 script = ExtResource("1_kth3a")
 Programs = Array[Resource]([ExtResource("2_a2jqr"), ExtResource("3_ktoop")])

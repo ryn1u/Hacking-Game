@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://crulgr3lnkljw"]
+
+[ext_resource type="Script" path="res://Code/Common/State/ControllerRegistry.cs" id="1_7pc1n"]
+[ext_resource type="Script" path="res://Code/Common/State/Controllers/DefaultGameplayStateController.cs" id="2_3h2xa"]
+[ext_resource type="Script" path="res://Code/Common/State/Controllers/DefaultHackingGameplayStateController.cs" id="3_703rj"]
+
+[node name="ControllerRegistry" type="Node"]
+script = ExtResource("1_7pc1n")
+
+[node name="DefaultHackingGameplayStateController" type="Node" parent="."]
+script = ExtResource("3_703rj")
+
+[node name="DefaultGameplayStateRegistry" type="Node" parent="."]
+script = ExtResource("2_3h2xa")
