@@ -20,21 +20,21 @@ public partial class PlayerHackingController : Node
 
 	private void OnPlayerStartHack(SystemResource system)
 	{
-		if(gameplayStateController.GetIsHacking()) return;
+		if(gameplayStateController.GetGameplayMode() == GameplayMode.Hacking) return;
 
 		var pcInterface = InstantiateInterface();
 		pcInterface.InitializePCInterface(system);
 
-		gameplayStateController.SetIsHacking(true);
+		gameplayStateController.SetGameplayMode(GameplayMode.Hacking);
 		hackingGameplayStateController.ResetState();
 	}
 
 	private void OnPlayerStoppedHacking()
 	{
-		if(!gameplayStateController.GetIsHacking()) return;
+		if(gameplayStateController.GetGameplayMode() == GameplayMode.World) return;
 
 		DestroyInterface();
-		gameplayStateController.SetIsHacking(false);
+		gameplayStateController.SetGameplayMode(GameplayMode.World);
 	}
 
 	private PCInterfaceController InstantiateInterface()

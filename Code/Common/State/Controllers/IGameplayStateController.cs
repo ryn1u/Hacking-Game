@@ -7,8 +7,8 @@ namespace HackingGame.Common
 {
     public interface IGameplayStateController : IModelController
     {
-        public void SetIsHacking(bool value);
-        public bool GetIsHacking();
+        public void SetGameplayMode(GameplayMode mode);
+        public GameplayMode GetGameplayMode();
 
         public void AddProgramToInventory(Program program);
         public int GetInventoryProgramCount();

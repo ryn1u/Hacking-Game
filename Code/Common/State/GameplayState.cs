@@ -4,15 +4,15 @@ using HackingGame.Common;
 public partial class GameplayState : Node
 {
 	[ExportCategory("Player's variables")]
-	[Export] public bool IsHacking { get; private set; }
+	[Export] public GameplayMode GameplayMode { get; private set; }
 	[Export] public HackingGameplayState HackingGameplayState { get; private set; }
 
 	[Export] public Godot.Collections.Array<Program> Programs { get; set; }
 
-	public void SetIsHacking(bool value)
+	public void SetGameplayMode(GameplayMode mode)
 	{
-		IsHacking = value;
-		NotifyStateChange(PropertyName.IsHacking);
+		GameplayMode = mode;
+		NotifyStateChange(PropertyName.GameplayMode);
 	}
 
 	private void NotifyStateChange(string property)

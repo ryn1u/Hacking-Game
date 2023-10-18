@@ -39,36 +39,23 @@ namespace HackingGame.Characters.Player
 
 		private void OnGameplayStateChanged(GameplayState state, string property)
 		{
-			if(property == GameplayState.PropertyName.IsHacking)
+			if(property == GameplayState.PropertyName.GameplayMode)
 			{
-				if(state.IsHacking)
-				{
-					OnInputModeChanged(InputMode.Hacking);
-				}
-				else
-				{
-					OnInputModeChanged(InputMode.World);
-				}
+				OnInputModeChanged(state.GameplayMode);
 			}
 		}
 
-		public void OnInputModeChanged(InputMode mode)
+		public void OnInputModeChanged(GameplayMode mode)
 		{
 			switch(mode)
 			{
-				case InputMode.World:
+				case GameplayMode.World:
 					currentHandler = worldInputHandler;
 					break;
-				case InputMode.Hacking:
+				case GameplayMode.Hacking:
 					currentHandler = hackingInputHandler;
 					break;
 			}
-		}
-
-		public enum InputMode
-		{
-			World,
-			Hacking,
 		}
 	}
 }

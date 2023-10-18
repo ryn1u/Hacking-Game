@@ -22,9 +22,6 @@ public partial class EventBus : Node
 	[Signal] public delegate void PlayerStartedHackingEventHandler(SystemResource system);
 	[Signal] public delegate void PlayerStoppedHackingEventHandler();
 
-	// INPUT
-	[Signal] public delegate void PlayerChangeControlsEventHandler(PlayerInputController.InputMode mode);
-
 	// GAME STATE
 	[Signal] public delegate void OnGameplayStateChangedEventHandler(GameplayState state, string property);
 

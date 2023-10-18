@@ -21,14 +21,14 @@ namespace HackingGame.Common.Controllers
             gameplayState.Programs.Add(program); // TODO FIX this
         }
 
-        public void SetIsHacking(bool value)
+        public void SetGameplayMode(GameplayMode mode)
         {
-            gameplayState.SetIsHacking(value);
+            gameplayState.SetGameplayMode(mode);
         }
 
-        public bool GetIsHacking()
+        public GameplayMode GetGameplayMode()
         {
-            return gameplayState.IsHacking;
+            return gameplayState.GameplayMode;
         }
 
         public int GetInventoryProgramCount()
