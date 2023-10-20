@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using HackingGame.Common.Controllers;
+using System.Threading.Tasks;
 
 namespace HackingGame.Common
 {
@@ -20,7 +21,8 @@ namespace HackingGame.Common
         public void ResetSequence();
         public void AddProgramToSequence(Program program);
         public void RemoveProgramFromSequence(int position);
-        public int GetHAckingSequenceCount();
+        public int GetHackingSequenceCount();
+        public Program GetCurrentSequenceProgram();
 
         // HACKING INTERFACE
         public int GetInventoryCursorPosition();

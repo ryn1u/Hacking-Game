@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5cbbg6ttwnbk"]
+[gd_scene load_steps=18 format=3 uid="uid://c5cbbg6ttwnbk"]
 
 [ext_resource type="Script" path="res://Code/Characters/CharacterPhysicsController.cs" id="1_241mr"]
 [ext_resource type="SpriteFrames" uid="uid://dl5pmhm808ffs" path="res://Assets/Graphics/PlayerCharacterSpriteFrames.tres" id="2_ijq40"]
@@ -8,11 +8,13 @@
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerWorldInputHandler.cs" id="5_yb717"]
 [ext_resource type="Script" path="res://Code/Characters/CharacterState.cs" id="6_h1437"]
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerHackingInputHandler.cs" id="6_tgc5f"]
+[ext_resource type="Script" path="res://Code/Characters/Player/PlayerHackExecutionInputHandler.cs" id="7_4ycyy"]
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerInteractionController.cs" id="7_qq24j"]
 [ext_resource type="Script" path="res://Code/Characters/CharacterInteractionController.cs" id="7_xjr22"]
 [ext_resource type="PackedScene" uid="uid://2cip3b7d1ym7" path="res://Scenes/Player/InteractionIndicator.tscn" id="8_85yhk"]
 [ext_resource type="Script" path="res://Code/Characters/Player/PlayerHackingController.cs" id="9_k5i1c"]
 [ext_resource type="PackedScene" uid="uid://dggom4v6282ad" path="res://Scenes/Hacking/PC_Interface.tscn" id="10_q2ixs"]
+[ext_resource type="Script" path="res://Code/Characters/Player/HackExecutionController.cs" id="13_qqj5r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0wo0"]
 size = Vector2(14, 6)
@@ -50,6 +52,9 @@ script = ExtResource("5_yb717")
 [node name="PlayerHackingInputHandler" type="Node" parent="PlayerInputController"]
 script = ExtResource("6_tgc5f")
 
+[node name="PlayerHackExecutionInputHandler" type="Node" parent="PlayerInputController"]
+script = ExtResource("7_4ycyy")
+
 [node name="PlayerMovementController" type="Node" parent="." node_paths=PackedStringArray("state")]
 script = ExtResource("5_xvvba")
 state = NodePath("../PlayerState")
@@ -62,6 +67,9 @@ playerState = NodePath("../PlayerState")
 [node name="PlayerHackingController" type="Node" parent="."]
 script = ExtResource("9_k5i1c")
 PC_Interface = ExtResource("10_q2ixs")
+
+[node name="HackExecutionController" type="Node" parent="PlayerHackingController"]
+script = ExtResource("13_qqj5r")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(12, 12)

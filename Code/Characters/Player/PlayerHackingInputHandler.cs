@@ -19,7 +19,7 @@ namespace HackingGame.Characters.Player
 			gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
 			hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
 
-			funcs = new Func<InputEvent, bool>[] { HandleInteractionInput, HandleDirectionInput, HandleSelectInput };
+			funcs = new Func<InputEvent, bool>[] { HandleInteractionInput, HandleDirectionInput, HandleSelectInput, HandleCommitInput };
 		}
 
 		public bool HandleInput(InputEvent @event)
@@ -86,24 +86,31 @@ namespace HackingGame.Characters.Player
 		{
 			if(@event.IsReleased()) return false;
 			
-			switch(hackingGameplayStateController.GetCurrentSelector())
+			if(@event.IsAction("select"))
 			{
-				case CurrentSelector.Inventory:
-					var program = gameplayStateController.GetProgramAtIndex(hackingGameplayStateController.GetInventoryCursorPosition());
-					hackingGameplayStateController.AddProgramToSequence(program);
-					break;
-				case CurrentSelector.Sequence:
-					hackingGameplayStateController.RemoveProgramFromSequence(hackingGameplayStateController.GetSequenceCursorPosition());
+				switch(hackingGameplayStateController.GetCurrentSelector())
+				{
+					case CurrentSelector.Inventory:
+						var program = gameplayStateController.GetProgramAtIndex(hackingGameplayStateController.GetInventoryCursorPosition());
+						hackingGameplayStateController.AddProgramToSequence(program);
+						break;
+					case CurrentSelector.Sequence:
+						hackingGameplayStateController.RemoveProgramFromSequence(hackingGameplayStateController.GetSequenceCursorPosition());
 
-					var maxValue = hackingGameplayStateController.GetHAckingSequenceCount()- 1;
-					hackingGameplayStateController.SetSequenceCursor(Math.Clamp(hackingGameplayStateController.GetSequenceCursorPosition(), 0, maxValue));
-					break;
+						var maxValue = hackingGameplayStateController.GetHackingSequenceCount()- 1;
+						hackingGameplayStateController.SetSequenceCursor(Math.Clamp(hackingGameplayStateController.GetSequenceCursorPosition(), 0, maxValue));
+						break;
+				}
 			}
 			return true;
 		}
 		
 		private bool HandleCommitInput(InputEvent @event)
 		{
+			if(@event.IsAction("commit"))
+			{
+				EventBus.Call(EventsNames.PlayerStartedHackExecution);
+			}
 			return false;
 		}
     }

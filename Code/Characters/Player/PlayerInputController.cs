@@ -11,6 +11,7 @@ namespace HackingGame.Characters.Player
 	{
 		[Export] private PlayerWorldInputHandler worldInputHandler;
 		[Export] private PlayerHackingInputHandler hackingInputHandler;
+		[Export] private PlayerHackExecutionInputHandler hackExecutionInputHandler;
 		private Viewport viewport;
 
 		private IInputHandler currentHandler;
@@ -54,6 +55,9 @@ namespace HackingGame.Characters.Player
 					break;
 				case GameplayMode.Hacking:
 					currentHandler = hackingInputHandler;
+					break;
+				case GameplayMode.HackExecution:
+					currentHandler = hackExecutionInputHandler;
 					break;
 			}
 		}

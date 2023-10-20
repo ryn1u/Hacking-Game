@@ -1,3 +1,4 @@
+global using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 using System;
 using Godot;
 
@@ -34,6 +35,8 @@ namespace HackingGame.Common
             InventoryCursorPosition = 0;
             SequenceCursorPosition = 0;
             CurrentSelector = CurrentSelector.Inventory;
+            ExecutionPointerPosition = 0;
+            NodePointerPosition = 0;
         }
 
         private void NotifyStateChange(string property)

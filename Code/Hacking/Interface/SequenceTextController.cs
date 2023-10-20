@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Text;
 using System.Collections.Generic;
-using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 
 public partial class SequenceTextController : RichTextLabel
 {

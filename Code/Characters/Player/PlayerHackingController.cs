@@ -2,55 +2,71 @@ using Godot;
 using System;
 using HackingGame.Common;
 
-public partial class PlayerHackingController : Node
+namespace HackingGame.Characters.Player
 {
-	[Export] private PackedScene PC_Interface;
-	private const string KEY = "player_pc_interface";
-	private IGameplayStateController gameplayStateController;
-	private IHackingGameplayStateController hackingGameplayStateController;
+    public partial class PlayerHackingController : Node
+    {
+        [Export] private PackedScene PC_Interface;
+        private const string KEY = "player_pc_interface";
+        private IGameplayStateController gameplayStateController;
+        private IHackingGameplayStateController hackingGameplayStateController;
 
-	public override void _Ready()
-	{
-		EventBus.Relay.Connect(EventsNames.PlayerStartedHacking, this.ToCall(MethodName.OnPlayerStartHack));
-		EventBus.Relay.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
+        public override void _Ready()
+        {
+            EventBus.Relay.Connect(EventsNames.PlayerStartedHacking, this.ToCall(MethodName.OnPlayerStartHack));
+            EventBus.Relay.Connect(EventsNames.PlayerStoppedHacking, this.ToCall(MethodName.OnPlayerStoppedHacking));
 
-		gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
-		hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
-	}
+            EventBus.Relay.Connect(EventsNames.PlayerStartedHackExecution, this.ToCall(MethodName.OnPlayerStartedHackExecution));
+            EventBus.Relay.Connect(EventsNames.HackExecutionFinished, this.ToCall(MethodName.OnHackExecutionFinished));
 
-	private void OnPlayerStartHack(SystemResource system)
-	{
-		if(gameplayStateController.GetGameplayMode() == GameplayMode.Hacking) return;
+            gameplayStateController = ControllerRegistry.Get<IGameplayStateController>();
+            hackingGameplayStateController = ControllerRegistry.Get<IHackingGameplayStateController>();
+        }
 
-		var pcInterface = InstantiateInterface();
-		pcInterface.InitializePCInterface(system);
+        private void OnPlayerStartHack(SystemResource system)
+        {
+            if (gameplayStateController.GetGameplayMode() == GameplayMode.Hacking) return;
 
-		gameplayStateController.SetGameplayMode(GameplayMode.Hacking);
-		hackingGameplayStateController.ResetState();
-	}
+            var pcInterface = InstantiateInterface();
+            pcInterface.InitializePCInterface(system);
 
-	private void OnPlayerStoppedHacking()
-	{
-		if(gameplayStateController.GetGameplayMode() == GameplayMode.World) return;
+            gameplayStateController.SetGameplayMode(GameplayMode.Hacking);
+            hackingGameplayStateController.ResetState();
+        }
 
-		DestroyInterface();
-		gameplayStateController.SetGameplayMode(GameplayMode.World);
-	}
+        private void OnPlayerStoppedHacking()
+        {
+            if (gameplayStateController.GetGameplayMode() == GameplayMode.World) return;
 
-	private PCInterfaceController InstantiateInterface()
-	{
-		var args = new TempInstanceArgs() { Scene = PC_Interface };
-		EventBus.Call(EventsNames.CreateTemporaryInstance, KEY, args);
+            DestroyInterface();
+            gameplayStateController.SetGameplayMode(GameplayMode.World);
+        }
 
-		// Some coupling here. Maybe fix by moving all interface related state variables into gameplay state
-		var instance = (PCInterfaceController)args.Instance;
-		GetTree().Root.AddChild(instance);
+        private void OnPlayerStartedHackExecution()
+        {
+            gameplayStateController.SetGameplayMode(GameplayMode.HackExecution);
+        }
 
-		return instance;
-	}
+        private void OnHackExecutionFinished()
+        {
+            gameplayStateController.SetGameplayMode(GameplayMode.Hacking);
+        }
 
-	private void DestroyInterface()
-	{
-		EventBus.Call(EventsNames.DeleteTemporaryInstance, KEY);	
-	}
+        private PCInterfaceController InstantiateInterface()
+        {
+            var args = new TempInstanceArgs(PC_Interface);
+            EventBus.Call(EventsNames.CreateTemporaryInstance, KEY, args);
+
+            // Some coupling here. Maybe fix by moving all interface related state variables into gameplay state
+            var instance = (PCInterfaceController)args.Instance;
+            GetTree().Root.AddChild(instance);
+
+            return instance;
+        }
+
+        private void DestroyInterface()
+        {
+            EventBus.Call(EventsNames.DeleteTemporaryInstance, KEY);
+        }
+    }
 }

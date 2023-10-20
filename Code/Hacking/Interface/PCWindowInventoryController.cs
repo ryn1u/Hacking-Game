@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 using HackingGame.Common;
 
 public partial class PCWindowInventoryController : VBoxContainer

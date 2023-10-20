@@ -3,13 +3,10 @@ using System;
 
 public partial class PCInterfaceController : CanvasLayer
 {
+	[Signal] public delegate void OnPCInterfaceInitializedEventHandler(SystemResource system);
+
 	public void InitializePCInterface(SystemResource system)
 	{
-		GD.Print($"zinicjalizowano chuja o nazwie: {system.ResourceName}");
+		EmitSignal(SignalName.OnPCInterfaceInitialized, system);
 	}
-
-    public override void _Ready()
-    {
-		
-    }
 }

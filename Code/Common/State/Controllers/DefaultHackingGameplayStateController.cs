@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 namespace HackingGame.Common
 {
@@ -29,13 +30,19 @@ namespace HackingGame.Common
         {
             gameplayState.HackingGameplayState.RemoveProgramFromSequence(position);
         }
-        public int GetHAckingSequenceCount()
+        public int GetHackingSequenceCount()
         {
             return gameplayState.HackingGameplayState.HackingSequence.Count;
         }
         public void ResetSequence()
         {
             gameplayState.HackingGameplayState.ResetSequence();
+        }
+
+        public Program GetCurrentSequenceProgram()
+        {
+            var idx = gameplayState.HackingGameplayState.ExecutionPointerPosition;
+            return gameplayState.HackingGameplayState.HackingSequence[idx];
         }
 
         // SELECTOR

@@ -25,4 +25,9 @@ public partial class GameplayState : Node
 	{
 		HackingGameplayState = new HackingGameplayState(NotifyStateChange, PropertyName.HackingGameplayState);
 	}
+
+	public static string HackingProperty(string property)
+	{
+		return PropertyName.HackingGameplayState + "/" + property;
+	}
 }

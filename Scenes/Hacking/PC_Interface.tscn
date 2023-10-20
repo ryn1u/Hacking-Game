@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dggom4v6282ad"]
+[gd_scene load_steps=12 format=3 uid="uid://dggom4v6282ad"]
 
 [ext_resource type="Script" path="res://Code/Hacking/Interface/PCInterfaceController.cs" id="1_7jtwv"]
 [ext_resource type="Shader" path="res://Assets/Graphics/shaders/PC_Interface_blur_background.gdshader" id="2_yaanx"]
 [ext_resource type="PackedScene" uid="uid://dpdy85j5c1cpn" path="res://Scenes/Hacking/PC_Window.tscn" id="3_7hk0x"]
 [ext_resource type="PackedScene" uid="uid://s6u56plnq2my" path="res://Scenes/Hacking/PC_Hacking_Window.tscn" id="4_hkopr"]
+[ext_resource type="PackedScene" uid="uid://cdq8h2xa037fw" path="res://addons/hackable_system/hackable_system_map.tscn" id="5_86iee"]
+[ext_resource type="PackedScene" uid="uid://d0357ff2fpu5f" path="res://addons/hackable_system/controls/NodePointerIndicator.tscn" id="6_ofu43"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anbh3"]
 shader = ExtResource("2_yaanx")
@@ -84,6 +86,10 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="HackableSystemMap" parent="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System" instance=ExtResource("5_86iee")]
+layout_mode = 2
+pointerScene = ExtResource("6_ofu43")
+
 [node name="Panel" type="Panel" parent="Margins"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6gwre")
@@ -99,3 +105,5 @@ theme_override_font_sizes/font_size = 21
 text = "BRON"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="OnPCInterfaceInitialized" from="." to="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/HackableSystemMap" method="OnPCInterfaceInitialized"]

@@ -21,9 +21,16 @@ public partial class EventBus : Node
 	// HACKING
 	[Signal] public delegate void PlayerStartedHackingEventHandler(SystemResource system);
 	[Signal] public delegate void PlayerStoppedHackingEventHandler();
+	[Signal] public delegate void PlayerStartedHackExecutionEventHandler();
+	[Signal] public delegate void HackExecutionFinishedEventHandler();
+	[Signal] public delegate void RequestNodeAtPointerPositionEventHandler();
+	[Signal] public delegate void ToggleNodeIndicatorEventHandler(bool toggle);
 
 	// GAME STATE
 	[Signal] public delegate void OnGameplayStateChangedEventHandler(GameplayState state, string property);
+
+	// ANIMATIONS
+	[Signal] public delegate void OnAnimationFinishedEventHandler(string animation);
 
     public override void _Ready()
     {

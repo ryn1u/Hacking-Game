@@ -36,6 +36,11 @@ public partial class TempInstanceManager : Node
 
 public partial class TempInstanceArgs : RefCounted
 {
+	public TempInstanceArgs(PackedScene scene)
+	{
+		Scene = scene;
+	}
+
 	public PackedScene Scene { get; set; }
 	public Node Instance { get; set; }
 }

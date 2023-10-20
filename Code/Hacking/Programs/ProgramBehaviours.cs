@@ -1,59 +1,84 @@
 using Godot;
 using System;
+using HackingGame.Common;
 
-[Tool]
-public partial class ProgramBehaviours : Node
+namespace HackingGame.Hacking
 {
-	[Export] public Godot.Collections.Dictionary<string, Godot.GodotObject> ProgramBehavioursRegistry { get; set; }
+    [Tool]
+    public partial class ProgramBehaviours : Node
+    {
+        [Export] public Godot.Collections.Dictionary<string, Godot.GodotObject> ProgramBehavioursRegistry { get; set; }
 
-	private void ExecuteMvptr()
-	{
-		GD.Print("test program behaviour");
-	}
+        private IGameplayStateController stateController;
+		private IHackingGameplayStateController hackingController;
 
-	public override void _Ready()
-	{
-		if(Engine.IsEditorHint())
+        private void ExecuteMvptr(ProgramCallEventArgs args)
+        {
+            var nodePointerPosition = hackingController.GetNodePointerPosition() + 1;
+			hackingController.SetNodePointerPosition(nodePointerPosition);
+
+            var animationName = "move_pointer_position_animation";
+            AnimationSignalListener listener = new AnimationSignalListener(animationName);
+
+            args.CallCompletionTask = listener.Task;
+        }
+
+		private void ExecuteDoorCtrl(ProgramCallEventArgs args)
 		{
-			if(ProgramBehavioursRegistry is null)
-			{
-				ProgramBehavioursRegistry = new Godot.Collections.Dictionary<string, Godot.GodotObject>();
-			}
+			GD.Print("Open door");
+		}
 
-			SearchForMissingMembers();
-		}
-		else
-		{
-			SubscribeProgramsToSignals();
-		}
-	}
+        public override void _Ready()
+        {
+            if (Engine.IsEditorHint())
+            {
+                if (ProgramBehavioursRegistry is null)
+                {
+                    ProgramBehavioursRegistry = new Godot.Collections.Dictionary<string, Godot.GodotObject>();
+                }
 
-	private void SearchForMissingMembers()
-	{
-		var fields =  typeof(ProgramBehaviours.MethodName).GetFields();
-		foreach(var field in fields)
-		{
-			var fieldName = field.Name;
-			if(fieldName.Contains("Execute"))
-			{
-				if(!ProgramBehavioursRegistry.ContainsKey(fieldName))
-				{
-					ProgramBehavioursRegistry.Add(fieldName, null);
-				}
-			}
-		}
-	}
+                SearchForMissingMembers();
+            }
+            else
+            {
+                Initialize();
+                SubscribeProgramsToSignals();
+            }
+        }
 
-	private void SubscribeProgramsToSignals()
-	{
-		foreach(var pair in ProgramBehavioursRegistry)
-		{
-			var method = pair.Key;
-			var program = pair.Value;
-			if(program is not null)
-			{
-				program.Connect(Program.SignalName.ProgramBehaviour, new Callable(this, method));
-			}
-		}
-	}
+        private void Initialize()
+        {
+			stateController = ControllerRegistry.Get<IGameplayStateController>();
+			hackingController = ControllerRegistry.Get<IHackingGameplayStateController>();
+        }
+
+        private void SearchForMissingMembers()
+        {
+            var fields = typeof(ProgramBehaviours.MethodName).GetFields();
+            foreach (var field in fields)
+            {
+                var fieldName = field.Name;
+                if (fieldName.Contains("Execute"))
+                {
+                    if (!ProgramBehavioursRegistry.ContainsKey(fieldName))
+                    {
+                        ProgramBehavioursRegistry.Add(fieldName, null);
+                    }
+                }
+            }
+        }
+
+        private void SubscribeProgramsToSignals()
+        {
+            foreach (var pair in ProgramBehavioursRegistry)
+            {
+                var method = pair.Key;
+                var program = pair.Value;
+                if (program is not null)
+                {
+                    program.Connect(Program.SignalName.ProgramBehaviour, new Callable(this, method));
+                }
+            }
+        }
+    }
 }

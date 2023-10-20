@@ -16,7 +16,7 @@ namespace HackingGame.Characters.Player
 			{
 				if(state.Interaction is not null)
 				{
-					TempInstanceArgs args = new TempInstanceArgs() { Scene = indicatorScene };
+					TempInstanceArgs args = new TempInstanceArgs(indicatorScene);
 					EventBus.Call(EventsNames.CreateTemporaryInstance, KEY, args);
 					Owner.AddChild(args.Instance);
 				}
