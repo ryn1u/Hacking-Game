@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using HackingGame.Common;
+using DoorTile = HackingGame.Map.DoorTileController;
 
 namespace HackingGame.Hacking
 {
@@ -14,7 +15,7 @@ namespace HackingGame.Hacking
 
         private void ExecuteMvptr(ProgramCallEventArgs args)
         {
-            var nodePointerPosition = hackingController.GetNodePointerPosition() + 1;
+            var nodePointerPosition = hackingController.GetNextNodePointerPosition();
 			hackingController.SetNodePointerPosition(nodePointerPosition);
 
             var animationName = "move_pointer_position_animation";
@@ -25,6 +26,9 @@ namespace HackingGame.Hacking
 
 		private void ExecuteDoorCtrl(ProgramCallEventArgs args)
 		{
+            var doorNode = GetParent().GetNode("MainSceneRoot/" + args.ConnectedObject) as DoorTile;
+            doorNode.Interact();
+
 			GD.Print("Open door");
 		}
 

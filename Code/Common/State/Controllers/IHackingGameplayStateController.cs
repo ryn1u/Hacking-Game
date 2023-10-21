@@ -1,6 +1,7 @@
 using System;
 using Godot;
 using HackingGame.Common.Controllers;
+using HackingGame.Hacking;
 using System.Threading.Tasks;
 
 namespace HackingGame.Common
@@ -8,6 +9,8 @@ namespace HackingGame.Common
     public interface IHackingGameplayStateController : IModelController
     {
         // OVERALL
+        public void SetCurrentSystem(SystemResource system);
+        public SystemResource GetCurrentSystem();
         public void ResetState();
 
         // HACK EXECUTION
@@ -15,14 +18,17 @@ namespace HackingGame.Common
         public void SetExecutionPointerPosition(int value);
         public int GetNodePointerPosition();
         public void SetNodePointerPosition(int value);
+        public NodeResource GetNodeAtPointerPosition();
+        public int GetNextNodePointerPosition();
 
 
         // HACK SEQUENCE
         public void ResetSequence();
-        public void AddProgramToSequence(Program program);
+        public void AddProgramToSequence(Program program, bool isTemp = false, NodePath connectedNode = null);
         public void RemoveProgramFromSequence(int position);
         public int GetHackingSequenceCount();
-        public Program GetCurrentSequenceProgram();
+        public HackingSequenceElement GetCurrentSequenceElement();
+        public void RemoveTemporaryFromSequence();
 
         // HACKING INTERFACE
         public int GetInventoryCursorPosition();

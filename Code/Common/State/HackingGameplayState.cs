@@ -1,6 +1,7 @@
 global using HackingProperties = HackingGame.Common.HackingGameplayState.PropertyName;
 using System;
 using Godot;
+using HackingGame.Hacking;
 
 namespace HackingGame.Common
 {
@@ -8,11 +9,14 @@ namespace HackingGame.Common
     {
         private event Action<string> OnHackingGameplayStateChangedEvent;
 
+        //GENERAL
+        [Export] public SystemResource CurrentSystem { get; private set; }
+
         //HACK INTERFACE STATE
         [Export] public CurrentSelector CurrentSelector { get; private set; }
         [Export] public int InventoryCursorPosition { get; private set; }
         [Export] public int SequenceCursorPosition { get; private set; }
-        [Export] public Godot.Collections.Array<Program> HackingSequence { get; private set; }
+        [Export] public Godot.Collections.Array<HackingSequenceElement> HackingSequence { get; private set; }
 
         //HACK EXECUTION STATE
         [Export] public int ExecutionPointerPosition { get; private set; }
@@ -31,17 +35,25 @@ namespace HackingGame.Common
 
         public void ResetState()
         {
-            HackingSequence = new Godot.Collections.Array<Program>();
+            HackingSequence = new Godot.Collections.Array<HackingSequenceElement>();
             InventoryCursorPosition = 0;
             SequenceCursorPosition = 0;
             CurrentSelector = CurrentSelector.Inventory;
             ExecutionPointerPosition = 0;
             NodePointerPosition = 0;
+            CurrentSystem = null;
         }
 
         private void NotifyStateChange(string property)
         {
             OnHackingGameplayStateChangedEvent.Invoke( notificationPrefix + "/" + property);
+        }
+
+        // GENERAL
+        public void SetCurrentSystem(SystemResource system)
+        {
+            CurrentSystem = system;
+            NotifyStateChange(PropertyName.CurrentSystem);
         }
 
         // EXECUTION CONTROLS
@@ -60,17 +72,17 @@ namespace HackingGame.Common
         // SEQUENCE CONTROLS
         public void ResetSequence()
         {
-            HackingSequence = new Godot.Collections.Array<Program>();
+            HackingSequence = new Godot.Collections.Array<HackingSequenceElement>();
             NotifyStateChange(PropertyName.HackingSequence);
         }
 
-        public void AddProgramToSequence(Program program)
+        public void AddProgramToSequence(Program program, bool isTemp, NodePath path)
         {
-            HackingSequence.Add(program);
+            HackingSequence.Add(new HackingSequenceElement(program, isTemp, path));
             NotifyStateChange(PropertyName.HackingSequence);
         }
 
-        public void RemoveProgramFromSequence(int position)
+        public void RemoveElementFromSequence(int position)
         {
             HackingSequence.RemoveAt(position);
             NotifyStateChange(PropertyName.HackingSequence);

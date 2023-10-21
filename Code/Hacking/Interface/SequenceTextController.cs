@@ -31,7 +31,7 @@ public partial class SequenceTextController : RichTextLabel
 
 			for (int i = 0; i < hackingState.HackingSequence.Count; i++)
 			{
-				var program = hackingState.HackingSequence[i];
+				var program = hackingState.HackingSequence[i].Program;
 				var cellStrs = new string[] { program.Addr1.ToString("X4"), program.Addr2.ToString("X2"), "10", program.ProgramName.ToUpper(), "--" };
 				if(hackingState.CurrentSelector == HackingGame.Common.CurrentSelector.Sequence && hackingState.SequenceCursorPosition == i)
 				{

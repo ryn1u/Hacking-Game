@@ -18,15 +18,15 @@ namespace HackingGame.Hacking
             var expected = GameplayState.HackingProperty(HackingProperties.NodePointerPosition);
             if(property == expected)
             {
-                MovePointer();
+                var pointer = state.HackingGameplayState.NodePointerPosition;
+                var node = state.HackingGameplayState.CurrentSystem.Nodes[pointer];
+                MovePointer(node);
             }
         }
 
-        private async void MovePointer()
+        private async void MovePointer(NodeResource node)
         {
-            var node = SignalEventArguments<HackableSystemNode>.Call(EventsNames.RequestNodeAtPointerPosition);
-
-            var target = node.Position + node.Size / 2 - Size / 2;
+            var target = node.Position - Size / 2;
 
             var myTween = CreateTween();
             myTween.TweenProperty(this, PropertyName.Position.ToString(), target, tweenDuration)

@@ -20,10 +20,21 @@ public partial class HackableSystemMap : Control
     {
 		if(!Engine.IsEditorHint())
 		{
-			EventBus.Relay.Connect(EventsNames.RequestNodeAtPointerPosition, this.ToCall(MethodName.OnRequestNodeAtPointerPosition));
 			EventBus.Relay.Connect(EventsNames.ToggleNodeIndicator, this.ToCall(MethodName.OnToggleNodeIndicator));
+			EventBus.Relay.Connect(EventsNames.OnGameplayStateChanged, this.ToCall(MethodName.OnGameplayStateChanged));
 		}
     }
+
+	private void OnGameplayStateChanged(GameplayState state, string property)
+	{
+		if(property == GameplayState.HackingProperty(HackingProperties.CurrentSystem))
+		{
+			if(state.HackingGameplayState.CurrentSystem is not null)
+			{
+				LoadSystem(state.HackingGameplayState.CurrentSystem);
+			}
+		}
+	}
 
     public void OnToggleNodeIndicator(bool toggle)
 	{
@@ -32,6 +43,9 @@ public partial class HackableSystemMap : Control
 			var args = new TempInstanceArgs(pointerScene);
 			EventBus.Call(EventsNames.CreateTemporaryInstance, INDICATOR_KEY, args);
 			AddChild(args.Instance);
+
+			var control = (Control)args.Instance;
+			control.Position = systemResource.Nodes[0].Position - control.Size / 2;
 		}
 		else
 		{
@@ -39,20 +53,12 @@ public partial class HackableSystemMap : Control
 		}
 	}
 
-	public void OnRequestNodeAtPointerPosition(SignalEventArguments<HackableSystemNode> args)
-	{
-		var controller = ControllerRegistry.Get<IHackingGameplayStateController>();
-		var nodePointerPosition = controller.GetNodePointerPosition();
-
-		args.Data = nodes[nodePointerPosition];
-	}
-
 
 	// RESOURCE TOOLS
 	private const string NODE_SCENE_PATH = "addons/hackable_system/HackableSystemNode.tscn";
 	private const string EDGE_SCENE_PATH = "addons/hackable_system/SystemEdge.tscn";
 
-	public void OnPCInterfaceInitialized(SystemResource system)
+	public void LoadSystem(SystemResource system)
 	{
 		systemResource = system;
 		Load();
@@ -99,7 +105,7 @@ public partial class HackableSystemMap : Control
 			{
 				if (child is HackableSystemNode node)
 				{
-					var nodeResource = new NodeResource(node.Position, node.Program);
+					var nodeResource = new NodeResource(node.Position + node.Size / 2, node.Program);
 					systemResource.Nodes.Add(nodeResource);
 				}
 				else if (child is SystemEdge edge)
@@ -127,7 +133,7 @@ public partial class HackableSystemMap : Control
 			{
 				var instance = resource.Instantiate<Control>();
 
-				instance.Position = nodeResource.Position;
+				instance.Position = nodeResource.Position - instance.Size / 2;
 				
 				var node = (HackableSystemNode)instance;
 				node.Program = nodeResource.Program;

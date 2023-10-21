@@ -1,6 +1,7 @@
 using Godot;
 using System;
-using System.Threading.Tasks;
+using System.Linq;
+using HackingGame.Hacking;
 
 namespace HackingGame.Common
 {
@@ -16,19 +17,31 @@ namespace HackingGame.Common
             gameplayState = GetNode<GameplayState>(gameplayStatePath);
         }
 
+        //GENERAL
+
+        public void SetCurrentSystem(SystemResource system)
+        {
+            gameplayState.HackingGameplayState.SetCurrentSystem(system);
+        }
+
+        public SystemResource GetCurrentSystem()
+        {
+            return gameplayState.HackingGameplayState.CurrentSystem;
+        }
+
         public void ResetState()
         {
             gameplayState.HackingGameplayState.ResetState();
         }
 
         //SEQUENCE
-        public void AddProgramToSequence(Program program)
+        public void AddProgramToSequence(Program program, bool isTemp = false, NodePath connectedNode = null)
         {
-            gameplayState.HackingGameplayState.AddProgramToSequence(program);
+            gameplayState.HackingGameplayState.AddProgramToSequence(program, isTemp, connectedNode);
         }
         public void RemoveProgramFromSequence(int position)
         {
-            gameplayState.HackingGameplayState.RemoveProgramFromSequence(position);
+            gameplayState.HackingGameplayState.RemoveElementFromSequence(position);
         }
         public int GetHackingSequenceCount()
         {
@@ -39,10 +52,22 @@ namespace HackingGame.Common
             gameplayState.HackingGameplayState.ResetSequence();
         }
 
-        public Program GetCurrentSequenceProgram()
+        public HackingSequenceElement GetCurrentSequenceElement()
         {
             var idx = gameplayState.HackingGameplayState.ExecutionPointerPosition;
             return gameplayState.HackingGameplayState.HackingSequence[idx];
+        }
+
+        public void RemoveTemporaryFromSequence()
+        {
+            for(int i = gameplayState.HackingGameplayState.HackingSequence.Count - 1; i >= 0; i--)
+            {
+                var sequenceElement = gameplayState.HackingGameplayState.HackingSequence[i];
+                if(sequenceElement.IsTemporary)
+                {
+                    gameplayState.HackingGameplayState.RemoveElementFromSequence(i);
+                }
+            }
         }
 
         // SELECTOR
@@ -115,6 +140,19 @@ namespace HackingGame.Common
         public void SetNodePointerPosition(int value)
         {
             gameplayState.HackingGameplayState.SetNodePointerPosition(value);
+        }
+
+        public NodeResource GetNodeAtPointerPosition()
+        {
+            var pointer = gameplayState.HackingGameplayState.NodePointerPosition;
+            return gameplayState.HackingGameplayState.CurrentSystem.Nodes[pointer];
+        }
+
+        public int GetNextNodePointerPosition()
+        {
+            var system = gameplayState.HackingGameplayState.CurrentSystem;
+            var currentIdx = gameplayState.HackingGameplayState.NodePointerPosition;
+            return system.Edges.First(edge => edge.X == currentIdx).Y;
         }
     }
 }

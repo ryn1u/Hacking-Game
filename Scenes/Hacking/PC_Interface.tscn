@@ -105,5 +105,3 @@ theme_override_font_sizes/font_size = 21
 text = "BRON"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="OnPCInterfaceInitialized" from="." to="Margins/MarginContainer/MarginContainer/HBoxContainer/PC_Window_System/HackableSystemMap" method="OnPCInterfaceInitialized"]

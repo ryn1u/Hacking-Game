@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://addons/hackable_system/SystemResource.cs" id="1_erstq"]
 [ext_resource type="Resource" uid="uid://b8xm81cf451lj" path="res://Code/Hacking/Programs/Resources/DoorCtrlProgram.tres" id="2_t1kma"]
 
-[sub_resource type="Resource" id="Resource_jm6ch"]
+[sub_resource type="Resource" id="Resource_fjs5a"]
 script = ExtResource("1_bq38o")
-Position = Vector2(103, 87)
+Position = Vector2(101, 148)
 ConnectedNode = NodePath("")
 
-[sub_resource type="Resource" id="Resource_s2aie"]
+[sub_resource type="Resource" id="Resource_1vqxt"]
 script = ExtResource("1_bq38o")
 Position = Vector2(101, 448)
 Program = ExtResource("2_t1kma")
-ConnectedNode = NodePath("")
+ConnectedNode = NodePath("TileMap/DoorTile")
 
 [resource]
 script = ExtResource("1_erstq")
-Nodes = [SubResource("Resource_jm6ch"), SubResource("Resource_s2aie")]
+Nodes = [SubResource("Resource_fjs5a"), SubResource("Resource_1vqxt")]
 Edges = [Vector2i(0, 1)]

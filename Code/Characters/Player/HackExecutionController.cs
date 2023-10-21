@@ -25,7 +25,7 @@ namespace HackingGame.Hacking
             {
                 ExecuteHack(state);
             }
-            else if(property == HackingProperties.NodePointerPosition)
+            else if(property == GameplayState.HackingProperty(HackingProperties.NodePointerPosition))
             {
                 nodePointerMovedFlag = true;
             }
@@ -40,12 +40,12 @@ namespace HackingGame.Hacking
 
             while(true)
             {
-                var program = hackingController.GetCurrentSequenceProgram();
+                var sequenceElement = hackingController.GetCurrentSequenceElement();
                 nodePointerMovedFlag = false;
 
                 // Execute program at sequence pointer
-                var args = new ProgramCallEventArgs();
-                program.EmitSignal(Program.SignalName.ProgramBehaviour, args);
+                var args = new ProgramCallEventArgs() { ConnectedObject = sequenceElement.ConnectedNode };
+                sequenceElement.Program.EmitSignal(Program.SignalName.ProgramBehaviour, args);
 
                 if(args.CallCompletionTask is not null)
                 {
@@ -55,9 +55,9 @@ namespace HackingGame.Hacking
                 // If Node pointer is moved add program at next node to sequence
                 if(nodePointerMovedFlag)
                 {
-                    var newNode = SignalEventArguments<HackableSystemNode>.Call(EventsNames.RequestNodeAtPointerPosition);
+                    var newNode = hackingController.GetNodeAtPointerPosition();
                     var newProgram = newNode.Program;
-                    hackingController.AddProgramToSequence(newProgram);
+                    hackingController.AddProgramToSequence(newProgram, true, newNode.ConnectedNode);
                 }
 
                 // Move sequence pointer to next node
@@ -79,6 +79,7 @@ namespace HackingGame.Hacking
             // FINISH
             EventBus.Call(EventsNames.ToggleNodeIndicator, false);
 
+            hackingController.RemoveTemporaryFromSequence();
             hackingController.SetExecutionPointerPosition(0);
             hackingController.SetNodePointerPosition(0);
 

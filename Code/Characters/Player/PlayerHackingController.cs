@@ -28,10 +28,10 @@ namespace HackingGame.Characters.Player
             if (gameplayStateController.GetGameplayMode() == GameplayMode.Hacking) return;
 
             var pcInterface = InstantiateInterface();
-            pcInterface.InitializePCInterface(system);
 
             gameplayStateController.SetGameplayMode(GameplayMode.Hacking);
             hackingGameplayStateController.ResetState();
+            hackingGameplayStateController.SetCurrentSystem(system);
         }
 
         private void OnPlayerStoppedHacking()

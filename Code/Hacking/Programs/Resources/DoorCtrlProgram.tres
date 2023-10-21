@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b8xm81cf451lj"]
+[gd_resource type="Resource" script_class="Program" load_steps=2 format=3 uid="uid://b8xm81cf451lj"]
 
 [ext_resource type="Script" path="res://Code/Hacking/Programs/Program.cs" id="1_o181n"]
 
 [resource]
 script = ExtResource("1_o181n")
-ProgramName = "door-ctrl"
+ProgramName = "dr_ctrl"
 Description = "Opens/Closes connected doors."
 Addr1 = 13665
 Addr2 = 115

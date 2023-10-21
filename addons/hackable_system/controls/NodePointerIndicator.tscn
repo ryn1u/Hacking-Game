@@ -5,10 +5,8 @@
 
 [node name="NodePointerIndicator" type="TextureRect"]
 modulate = Color(0.984375, 0.394531, 0.285156, 1)
-offset_left = 93.0
-offset_top = 77.0
-offset_right = 241.0
-offset_bottom = 225.0
+offset_right = 148.0
+offset_bottom = 148.0
 texture = ExtResource("1_wefvu")
 script = ExtResource("2_2erk8")
 tweenDuration = 0.3

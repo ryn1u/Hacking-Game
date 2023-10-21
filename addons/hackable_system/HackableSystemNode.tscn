@@ -4,10 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ccpki8srh37ou" path="res://Assets/Graphics/icons/1bit_icons_border.png" id="2_ukqac"]
 
 [node name="HackableSystemNode" type="MarginContainer"]
-offset_left = 358.0
-offset_top = 212.0
-offset_right = 486.0
-offset_bottom = 340.0
+offset_right = 128.0
+offset_bottom = 128.0
 script = ExtResource("1_52vey")
 metadata/_edit_group_ = true
 
